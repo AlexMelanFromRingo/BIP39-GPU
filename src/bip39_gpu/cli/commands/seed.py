@@ -28,7 +28,7 @@ import time
 @click.option(
     "--gpu",
     is_flag=True,
-    help="Use GPU acceleration (currently uses CPU fallback)"
+    help="Use GPU acceleration (PBKDF2-HMAC-SHA512, auto-fallback to CPU)"
 )
 @click.option(
     "-f", "--file",

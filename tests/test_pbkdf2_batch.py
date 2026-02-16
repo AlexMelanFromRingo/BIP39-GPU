@@ -74,14 +74,18 @@ class TestBatchPBKDF2:
         seeds = batch_mnemonic_to_seed([])
         assert seeds == []
 
-    def test_gpu_flag_warning(self):
-        """Test GPU flag shows warning (not yet implemented)."""
+    def test_gpu_flag_functionality(self):
+        """Test GPU flag works (with CPU fallback)."""
         mnemonic = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about"
 
-        with pytest.warns(UserWarning, match="GPU PBKDF2 not yet implemented"):
-            seeds = batch_mnemonic_to_seed([mnemonic], use_gpu=True)
+        # GPU flag should work (falls back to CPU if GPU unavailable)
+        seeds_gpu = batch_mnemonic_to_seed([mnemonic], use_gpu=True)
+        seeds_cpu = batch_mnemonic_to_seed([mnemonic], use_gpu=False)
 
-        assert len(seeds) == 1
+        assert len(seeds_gpu) == 1
+        assert len(seeds_cpu) == 1
+        # Should produce same result
+        assert seeds_gpu[0] == seeds_cpu[0]
 
     def test_estimate_batch_time(self):
         """Test batch time estimation."""

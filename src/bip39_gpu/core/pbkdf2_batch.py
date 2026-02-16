@@ -16,7 +16,7 @@ def batch_mnemonic_to_seed(
         mnemonics: List of mnemonic phrases
         passphrases: Optional list of passphrases (one per mnemonic)
                     If None, empty passphrase used for all
-        use_gpu: Use GPU acceleration if available (currently uses CPU)
+        use_gpu: Use GPU acceleration if available (auto-fallback to CPU)
 
     Returns:
         List of 64-byte seeds
@@ -39,13 +39,14 @@ def batch_mnemonic_to_seed(
             f"{len(passphrases)} passphrases"
         )
 
-    # GPU acceleration coming soon
+    # GPU acceleration
     if use_gpu:
-        import warnings
-        warnings.warn(
-            "GPU PBKDF2 not yet implemented, using CPU fallback",
-            UserWarning
-        )
+        try:
+            from ..gpu.pbkdf2_gpu import batch_mnemonic_to_seed_gpu
+            return batch_mnemonic_to_seed_gpu(mnemonics, passphrases)
+        except (ImportError, Exception):
+            # Fall back to CPU if GPU unavailable or fails
+            pass
 
     # CPU batch processing
     seeds = []
