@@ -67,6 +67,21 @@ Batch processing of mnemonics and addresses.
 python examples/batch_operations.py
 ```
 
+### 5. `bruteforce_example.py`
+Brute-force mnemonic recovery demonstrations.
+
+**Demonstrates:**
+- Recovering mnemonics with unknown words (??? placeholders)
+- Feasibility estimation before searching
+- Pattern parsing and validation
+- Finding multiple valid mnemonics
+- Search space warnings and recommendations
+
+**Run:**
+```bash
+python examples/bruteforce_example.py
+```
+
 ## Prerequisites
 
 Make sure you have the package installed:
