@@ -2,7 +2,7 @@
 
 import click
 from ..__version__ import __version__
-from .commands import generate, validate, seed, address
+from .commands import generate, validate, seed, address, bruteforce
 
 
 @click.group()
@@ -35,9 +35,7 @@ cli.add_command(generate)
 cli.add_command(validate)
 cli.add_command(seed)
 cli.add_command(address)
-
-# Future commands will be added in later phases
-# cli.add_command(bruteforce)
+cli.add_command(bruteforce)
 
 
 if __name__ == "__main__":
