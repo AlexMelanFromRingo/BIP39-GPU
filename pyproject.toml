@@ -1,0 +1,76 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bip39-gpu"
+version = "0.1.0"
+description = "GPU-accelerated BIP39 mnemonic generator using OpenCL"
+readme = "README.md"
+requires-python = ">=3.12"
+license = {text = "MIT"}
+authors = [
+    {name = "BIP39-GPU Contributors"}
+]
+keywords = ["bip39", "mnemonic", "gpu", "opencl", "bitcoin", "cryptocurrency", "wallet"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security :: Cryptography",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    "pyopencl>=2024.1",
+    "numpy>=1.26.0",
+    "click>=8.1.0",
+    "cryptography>=42.0.0",
+    # "bip-utils>=2.9.0",  # Temporarily disabled - requires python3-dev for compilation
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "black>=24.0.0",
+    "mypy>=1.8.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+bip39-gpu = "bip39_gpu.cli.main:cli"
+
+[project.urls]
+Homepage = "https://github.com/young-developer/BIP39-GPU"
+Repository = "https://github.com/young-developer/BIP39-GPU"
+Issues = "https://github.com/young-developer/BIP39-GPU/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+bip39_gpu = ["gpu/cl/*.cl", "core/wordlists/*.txt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --cov=bip39_gpu --cov-report=term-missing"
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
