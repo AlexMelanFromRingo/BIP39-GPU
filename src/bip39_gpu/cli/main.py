@@ -2,7 +2,7 @@
 
 import click
 from ..__version__ import __version__
-from .commands import generate, validate, seed
+from .commands import generate, validate, seed, address
 
 
 @click.group()
@@ -22,6 +22,7 @@ def cli(verbose: bool) -> None:
         bip39-gpu generate --words 12
         bip39-gpu validate "word1 word2 ... word12"
         bip39-gpu seed "mnemonic phrase" --passphrase "test"
+        bip39-gpu address "mnemonic phrase" --format Bech32 --count 5
 
     For more information, visit: https://github.com/young-developer/BIP39-GPU
     """
@@ -33,10 +34,10 @@ def cli(verbose: bool) -> None:
 cli.add_command(generate)
 cli.add_command(validate)
 cli.add_command(seed)
+cli.add_command(address)
 
 # Future commands will be added in later phases
 # cli.add_command(bruteforce)
-# cli.add_command(address)
 
 
 if __name__ == "__main__":

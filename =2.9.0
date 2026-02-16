@@ -1,0 +1,44 @@
+Collecting bip-utils
+  Using cached bip_utils-2.10.0-py3-none-any.whl.metadata (14 kB)
+Collecting cbor2<6.0.0,>=5.1.2 (from bip-utils)
+  Using cached cbor2-5.8.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.4 kB)
+Collecting coincurve>=19.0.1 (from bip-utils)
+  Using cached coincurve-21.0.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.0 kB)
+Collecting crcmod~=1.7 (from bip-utils)
+  Using cached crcmod-1.7-py3-none-any.whl
+Collecting ecdsa~=0.17 (from bip-utils)
+  Using cached ecdsa-0.19.1-py2.py3-none-any.whl.metadata (29 kB)
+Collecting ed25519-blake2b<2.0.0,>=1.4.1 (from bip-utils)
+  Using cached ed25519-blake2b-1.4.1.tar.gz (872 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting pycryptodome~=3.15 (from bip-utils)
+  Using cached pycryptodome-3.23.0-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.4 kB)
+Collecting pynacl~=1.5 (from bip-utils)
+  Using cached pynacl-1.6.2-cp38-abi3-manylinux_2_34_x86_64.whl.metadata (10.0 kB)
+Collecting py-sr25519-bindings<2.0.0,>=0.2.0 (from bip-utils)
+  Using cached py_sr25519_bindings-0.2.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (2.4 kB)
+Collecting six>=1.9.0 (from ecdsa~=0.17->bip-utils)
+  Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Requirement already satisfied: cffi>=2.0.0 in ./venv/lib/python3.12/site-packages (from pynacl~=1.5->bip-utils) (2.0.0)
+Requirement already satisfied: pycparser in ./venv/lib/python3.12/site-packages (from cffi>=2.0.0->pynacl~=1.5->bip-utils) (3.0)
+Using cached bip_utils-2.10.0-py3-none-any.whl (597 kB)
+Using cached cbor2-5.8.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (285 kB)
+Using cached coincurve-21.0.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.6 MB)
+Using cached ecdsa-0.19.1-py2.py3-none-any.whl (150 kB)
+Using cached py_sr25519_bindings-0.2.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (372 kB)
+Using cached pycryptodome-3.23.0-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.3 MB)
+Using cached pynacl-1.6.2-cp38-abi3-manylinux_2_34_x86_64.whl (1.4 MB)
+Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+Building wheels for collected packages: ed25519-blake2b
+  Building wheel for ed25519-blake2b (pyproject.toml): started
+  Building wheel for ed25519-blake2b (pyproject.toml): finished with status 'done'
+  Created wheel for ed25519-blake2b: filename=ed25519_blake2b-1.4.1-cp312-cp312-linux_x86_64.whl size=118259 sha256=f16d7063454bc36f05f5328c68f7003d382b0ac00453058207108101fe2875d5
+  Stored in directory: /home/young-developer/.cache/pip/wheels/4c/2d/9a/6efdadc10a00b64a8dc6aee36ac31d6481f4b569302a074bb2
+Successfully built ed25519-blake2b
+Installing collected packages: ed25519-blake2b, crcmod, six, pycryptodome, py-sr25519-bindings, coincurve, cbor2, pynacl, ecdsa, bip-utils
+Successfully installed bip-utils-2.10.0 cbor2-5.8.0 coincurve-21.0.0 crcmod-1.7 ecdsa-0.19.1 ed25519-blake2b-1.4.1 py-sr25519-bindings-0.2.3 pycryptodome-3.23.0 pynacl-1.6.2 six-1.17.0

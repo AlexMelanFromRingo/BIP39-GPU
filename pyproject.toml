@@ -28,7 +28,7 @@ dependencies = [
     "numpy>=1.26.0",
     "click>=8.1.0",
     "cryptography>=42.0.0",
-    # "bip-utils>=2.9.0",  # Temporarily disabled - requires python3-dev for compilation
+    "bip-utils>=2.9.0",
 ]
 
 [project.optional-dependencies]
