@@ -12,11 +12,15 @@
 - ✅ **Random mnemonic generation** (12, 15, 18, 21, or 24 words)
 - ✅ **Mnemonic validation** (checksum verification)
 - ✅ **Seed derivation** (PBKDF2-HMAC-SHA512, 2048 iterations)
-- ⚡ **GPU acceleration** via OpenCL (for batch operations)
+- ✅ **Bitcoin address generation** (BIP32/BIP44/BIP49/BIP84)
+  - P2PKH (Legacy, starts with '1')
+  - P2SH (SegWit-wrapped, starts with '3')
+  - Bech32 (Native SegWit, starts with 'bc1')
+- ⚡ **GPU acceleration** via OpenCL (infrastructure ready, batch PBKDF2 coming soon)
 - 🔍 **Brute-force search** (recover partial mnemonics) - Coming soon
-- 💼 **Address generation** (BIP32/BIP44) - Coming soon
 - 🐍 **Python library** + **CLI tool**
 - 📊 **JSON output** support
+- 🧪 **Comprehensive test suite** (49 tests, 48% coverage)
 
 ## Installation
 
@@ -93,6 +97,25 @@ bip39-gpu seed "mnemonic phrase" --gpu
 bip39-gpu seed "mnemonic phrase" --base64
 ```
 
+#### Generate Bitcoin addresses
+
+```bash
+# Generate P2PKH (Legacy) address
+bip39-gpu address "word1 word2 ... word12" --format P2PKH
+
+# Generate Bech32 (Native SegWit) address
+bip39-gpu address "mnemonic phrase" --format Bech32
+
+# Generate multiple addresses
+bip39-gpu address "mnemonic phrase" --format Bech32 --count 5
+
+# Generate with custom derivation path
+bip39-gpu address "mnemonic phrase" --account 1 --change 0 --index 10
+
+# JSON output
+bip39-gpu address "mnemonic phrase" --format P2SH --json
+```
+
 ### Python Library Usage
 
 ```python
@@ -117,6 +140,20 @@ mnemonic = BIP39Mnemonic.from_entropy(entropy)
 
 # Extract entropy from mnemonic
 entropy = BIP39Mnemonic.to_entropy(mnemonic)
+
+# Generate Bitcoin addresses
+from bip39_gpu.wallet import HDWallet
+
+wallet = HDWallet(mnemonic, passphrase="")
+
+# P2PKH (Legacy) address
+p2pkh_addr = wallet.derive_address(format="P2PKH")
+
+# Bech32 (Native SegWit) address
+bech32_addr = wallet.derive_address(format="Bech32")
+
+# Multiple addresses
+addrs = wallet.derive_addresses(count=5, format="Bech32")
 ```
 
 ## Project Structure
@@ -226,14 +263,15 @@ mypy src/
 ## Roadmap
 
 - [x] Core BIP39 implementation (CPU)
-- [x] CLI interface (generate, validate, seed)
+- [x] CLI interface (generate, validate, seed, address)
 - [x] Python library API
-- [ ] GPU acceleration (PBKDF2, SHA256)
-- [ ] Brute-force mnemonic search
-- [ ] BIP32/BIP44 address derivation
+- [x] BIP32/BIP44/BIP49/BIP84 address derivation (P2PKH, P2SH, Bech32)
+- [x] GPU infrastructure (OpenCL context, SHA256 kernels)
+- [x] Comprehensive test suite (49 tests, 48% coverage)
+- [ ] GPU PBKDF2 acceleration (batch seed generation)
+- [ ] Brute-force mnemonic search with GPU
 - [ ] Multi-language wordlist support
 - [ ] Hardware wallet integration
-- [ ] Comprehensive test suite
 - [ ] Performance benchmarks
 - [ ] Documentation website
 
