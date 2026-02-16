@@ -8,9 +8,10 @@ class DerivationPath:
     """BIP32 derivation path parser and builder."""
 
     # BIP44 path format: m / purpose' / coin_type' / account' / change / address_index
-    BIP44_TEMPLATE = "m/44'/0'/{account}'/{change}/{address_index}"
+    BIP44_TEMPLATE = "m/44'/0'/{account}'/{change}/{address_index}"  # P2PKH (Legacy)
     BIP49_TEMPLATE = "m/49'/0'/{account}'/{change}/{address_index}"  # P2SH-SegWit
-    BIP84_TEMPLATE = "m/84'/0'/{account}'/{change}/{address_index}"  # Native SegWit
+    BIP84_TEMPLATE = "m/84'/0'/{account}'/{change}/{address_index}"  # Native SegWit (Bech32)
+    BIP86_TEMPLATE = "m/86'/0'/{account}'/{change}/{address_index}"  # Taproot
 
     PATH_REGEX = re.compile(r"^m(/\d+'?)+$")
 
@@ -114,6 +115,30 @@ class DerivationPath:
             BIP84 path string
         """
         return f"m/84'/{coin_type}'/{account}'/{change}/{address_index}"
+
+    @staticmethod
+    def build_bip86(
+        account: int = 0,
+        change: int = 0,
+        address_index: int = 0,
+        coin_type: int = 0
+    ) -> str:
+        """Build BIP86 derivation path (Taproot).
+
+        Args:
+            account: Account index (default: 0)
+            change: Change type (default: 0)
+            address_index: Address index (default: 0)
+            coin_type: Coin type (default: 0)
+
+        Returns:
+            BIP86 path string
+
+        Example:
+            >>> DerivationPath.build_bip86(address_index=0)
+            "m/86'/0'/0'/0/0"
+        """
+        return f"m/86'/{coin_type}'/{account}'/{change}/{address_index}"
 
     @staticmethod
     def validate(path: str) -> bool:

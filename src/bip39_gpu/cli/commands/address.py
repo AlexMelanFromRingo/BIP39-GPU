@@ -40,9 +40,9 @@ from ..utils import error_message
 @click.option(
     "-f", "--format",
     "address_format",
-    type=click.Choice(["P2PKH", "P2SH", "Bech32"], case_sensitive=False),
+    type=click.Choice(["P2PKH", "P2SH", "Bech32", "Taproot"], case_sensitive=False),
     default="P2PKH",
-    help="Address format: P2PKH (1...), P2SH (3...), Bech32 (bc1...) (default: P2PKH)"
+    help="Address format: P2PKH (1...), P2SH (3...), Bech32 (bc1q...), Taproot (bc1p...) (default: P2PKH)"
 )
 @click.option(
     "--json",
@@ -67,7 +67,8 @@ def address(
     Address formats:
       - P2PKH (BIP44): Legacy addresses starting with '1'
       - P2SH (BIP49): SegWit-wrapped addresses starting with '3'
-      - Bech32 (BIP84): Native SegWit addresses starting with 'bc1'
+      - Bech32 (BIP84): Native SegWit addresses starting with 'bc1q'
+      - Taproot (BIP86): Taproot addresses starting with 'bc1p'
 
     Examples:
         bip39-gpu address "word1 word2 ... word12"
@@ -157,5 +158,6 @@ def _get_purpose(format: str) -> int:
         "P2PKH": 44,
         "P2SH": 49,
         "Bech32": 84,
+        "Taproot": 86,
     }
     return purposes.get(format, 44)

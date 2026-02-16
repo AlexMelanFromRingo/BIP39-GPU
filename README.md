@@ -12,15 +12,16 @@
 - ✅ **Random mnemonic generation** (12, 15, 18, 21, or 24 words)
 - ✅ **Mnemonic validation** (checksum verification)
 - ✅ **Seed derivation** (PBKDF2-HMAC-SHA512, 2048 iterations)
-- ✅ **Bitcoin address generation** (BIP32/BIP44/BIP49/BIP84)
+- ✅ **Bitcoin address generation** (BIP32/BIP44/BIP49/BIP84/BIP86)
   - P2PKH (Legacy, starts with '1')
   - P2SH (SegWit-wrapped, starts with '3')
-  - Bech32 (Native SegWit, starts with 'bc1')
+  - Bech32 (Native SegWit, starts with 'bc1q')
+  - Taproot (starts with 'bc1p')
 - ⚡ **GPU acceleration** via OpenCL (infrastructure ready, batch PBKDF2 coming soon)
 - 🔍 **Brute-force search** (recover partial mnemonics) - Coming soon
 - 🐍 **Python library** + **CLI tool**
 - 📊 **JSON output** support
-- 🧪 **Comprehensive test suite** (49 tests, 48% coverage)
+- 🧪 **Comprehensive test suite** (52 tests, 49% coverage)
 
 ## Installation
 
@@ -106,6 +107,9 @@ bip39-gpu address "word1 word2 ... word12" --format P2PKH
 # Generate Bech32 (Native SegWit) address
 bip39-gpu address "mnemonic phrase" --format Bech32
 
+# Generate Taproot address
+bip39-gpu address "mnemonic phrase" --format Taproot
+
 # Generate multiple addresses
 bip39-gpu address "mnemonic phrase" --format Bech32 --count 5
 
@@ -151,6 +155,9 @@ p2pkh_addr = wallet.derive_address(format="P2PKH")
 
 # Bech32 (Native SegWit) address
 bech32_addr = wallet.derive_address(format="Bech32")
+
+# Taproot address
+taproot_addr = wallet.derive_address(format="Taproot")
 
 # Multiple addresses
 addrs = wallet.derive_addresses(count=5, format="Bech32")
@@ -265,9 +272,9 @@ mypy src/
 - [x] Core BIP39 implementation (CPU)
 - [x] CLI interface (generate, validate, seed, address)
 - [x] Python library API
-- [x] BIP32/BIP44/BIP49/BIP84 address derivation (P2PKH, P2SH, Bech32)
+- [x] BIP32/BIP44/BIP49/BIP84/BIP86 address derivation (P2PKH, P2SH, Bech32, Taproot)
 - [x] GPU infrastructure (OpenCL context, SHA256 kernels)
-- [x] Comprehensive test suite (49 tests, 48% coverage)
+- [x] Comprehensive test suite (52 tests, 49% coverage)
 - [ ] GPU PBKDF2 acceleration (batch seed generation)
 - [ ] Brute-force mnemonic search with GPU
 - [ ] Multi-language wordlist support

@@ -67,6 +67,14 @@ class TestHDWallet:
         assert addr.startswith("bc1")
         assert len(addr) >= 42
 
+    def test_derive_taproot_address(self):
+        """Test Taproot address derivation."""
+        wallet = HDWallet(TEST_MNEMONIC)
+        addr = wallet.derive_address(format="Taproot")
+
+        assert addr.startswith("bc1p")
+        assert len(addr) == 62  # Taproot addresses are exactly 62 chars
+
     def test_derive_multiple_addresses(self):
         """Test deriving multiple addresses."""
         wallet = HDWallet(TEST_MNEMONIC)
@@ -130,6 +138,14 @@ class TestDerivationPath:
         path = DerivationPath.build_bip84(account=2, change=1, address_index=20)
         assert path == "m/84'/0'/2'/1/20"
 
+    def test_build_bip86_path(self):
+        """Test building BIP86 path."""
+        path = DerivationPath.build_bip86(account=0, address_index=0)
+        assert path == "m/86'/0'/0'/0/0"
+
+        path2 = DerivationPath.build_bip86(account=1, change=1, address_index=5)
+        assert path2 == "m/86'/0'/1'/1/5"
+
     def test_validate_path(self):
         """Test path validation."""
         assert DerivationPath.validate("m/44'/0'/0'/0/0")
@@ -156,6 +172,11 @@ class TestAddressFormats:
         """Test Bech32 detection."""
         addr = "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4"
         assert detect_address_format(addr) == "Bech32"
+
+    def test_detect_taproot(self):
+        """Test Taproot detection."""
+        addr = "bc1p5cyxnuxmeuwuvkwfem96lqzszd02n6xdcjrs20cac6yqjjwudpxqkedrcr"
+        assert detect_address_format(addr) == "Taproot"
 
     def test_detect_unknown(self):
         """Test unknown format detection."""

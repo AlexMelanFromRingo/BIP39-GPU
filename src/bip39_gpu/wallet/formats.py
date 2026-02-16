@@ -3,7 +3,7 @@
 import re
 from typing import Optional, Literal
 
-AddressFormat = Literal["P2PKH", "P2SH", "Bech32", "Unknown"]
+AddressFormat = Literal["P2PKH", "P2SH", "Bech32", "Taproot", "Unknown"]
 
 
 def detect_address_format(address: str) -> AddressFormat:
@@ -13,7 +13,7 @@ def detect_address_format(address: str) -> AddressFormat:
         address: Bitcoin address string
 
     Returns:
-        Address format: "P2PKH", "P2SH", "Bech32", or "Unknown"
+        Address format: "P2PKH", "P2SH", "Bech32", "Taproot", or "Unknown"
 
     Example:
         >>> detect_address_format("1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa")
@@ -22,6 +22,8 @@ def detect_address_format(address: str) -> AddressFormat:
         'P2SH'
         >>> detect_address_format("bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4")
         'Bech32'
+        >>> detect_address_format("bc1p...")
+        'Taproot'
     """
     # P2PKH: Starts with '1'
     if address.startswith('1'):
@@ -31,9 +33,21 @@ def detect_address_format(address: str) -> AddressFormat:
     elif address.startswith('3'):
         return "P2SH"
 
-    # Bech32: Starts with 'bc1' (mainnet) or 'tb1' (testnet)
-    elif address.startswith('bc1') or address.startswith('tb1'):
+    # Taproot: Starts with 'bc1p' (mainnet) or 'tb1p' (testnet)
+    elif address.startswith('bc1p') or address.startswith('tb1p'):
+        return "Taproot"
+
+    # Bech32: Starts with 'bc1q' (mainnet) or 'tb1q' (testnet)
+    elif address.startswith('bc1q') or address.startswith('tb1q'):
         return "Bech32"
+
+    # Legacy Bech32 check (less specific)
+    elif address.startswith('bc1') or address.startswith('tb1'):
+        # Could be Bech32 or Taproot, check length/format
+        if len(address) == 62:  # Taproot addresses are typically 62 chars
+            return "Taproot"
+        else:
+            return "Bech32"
 
     else:
         return "Unknown"
@@ -73,9 +87,11 @@ def is_valid_bitcoin_address(address: str) -> bool:
         base58_pattern = re.compile(r'^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$')
         return bool(base58_pattern.match(address))
 
-    # Bech32: Starts with bc1 or tb1
+    # Bech32 (SegWit) or Taproot: Starts with bc1 or tb1
     elif address.startswith('bc1') or address.startswith('tb1'):
-        # Bech32 characters (lowercase letters and numbers)
+        # Bech32/Taproot characters (lowercase letters and numbers)
+        # Bech32: bc1q... (42-62 chars)
+        # Taproot: bc1p... (62 chars)
         bech32_pattern = re.compile(r'^(bc1|tb1)[a-z0-9]{39,87}$')
         return bool(bech32_pattern.match(address.lower()))
 
@@ -95,12 +111,15 @@ def get_address_prefix(format: AddressFormat) -> str:
         >>> get_address_prefix("P2PKH")
         '1'
         >>> get_address_prefix("Bech32")
-        'bc1'
+        'bc1q'
+        >>> get_address_prefix("Taproot")
+        'bc1p'
     """
     prefixes = {
         "P2PKH": "1",
         "P2SH": "3",
-        "Bech32": "bc1",
+        "Bech32": "bc1q",
+        "Taproot": "bc1p",
     }
 
     return prefixes.get(format, "")

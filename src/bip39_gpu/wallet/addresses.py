@@ -13,6 +13,8 @@ try:
         Bip49Coins,
         Bip84,
         Bip84Coins,
+        Bip86,
+        Bip86Coins,
     )
     BIP_UTILS_AVAILABLE = True
 except ImportError:
@@ -22,7 +24,7 @@ except ImportError:
 from ..core.mnemonic import BIP39Mnemonic
 from ..utils.exceptions import InvalidDerivationPathError
 
-AddressFormat = Literal["P2PKH", "P2SH", "Bech32"]
+AddressFormat = Literal["P2PKH", "P2SH", "Bech32", "Taproot"]
 
 
 class HDWallet:
@@ -74,7 +76,11 @@ class HDWallet:
             change: Change type (0=external, 1=internal) (default: 0)
             address_index: Address index (default: 0)
             coin: Coin symbol (default: "BTC")
-            format: Address format - "P2PKH" (1...), "P2SH" (3...), or "Bech32" (bc1...)
+            format: Address format:
+                - "P2PKH" (1...) - Legacy
+                - "P2SH" (3...) - SegWit-wrapped
+                - "Bech32" (bc1...) - Native SegWit
+                - "Taproot" (bc1p...) - Taproot
 
         Returns:
             Bitcoin address string
@@ -118,10 +124,18 @@ class HDWallet:
                 bip = bip.AddressIndex(address_index)
                 return bip.PublicKey().ToAddress()
 
+            elif format == "Taproot":
+                # BIP86: Taproot addresses (bc1p...)
+                bip = Bip86.FromSeed(self.seed_bytes, Bip86Coins.BITCOIN)
+                bip = bip.Purpose().Coin().Account(account)
+                bip = bip.Change(Bip44Changes.CHAIN_EXT if change == 0 else Bip44Changes.CHAIN_INT)
+                bip = bip.AddressIndex(address_index)
+                return bip.PublicKey().ToAddress()
+
             else:
                 raise ValueError(
                     f"Invalid format: {format}. "
-                    f"Must be one of: P2PKH, P2SH, Bech32"
+                    f"Must be one of: P2PKH, P2SH, Bech32, Taproot"
                 )
 
         except Exception as e:
@@ -194,6 +208,9 @@ class HDWallet:
                 bip = bip.Purpose().Coin().Account(account)
             elif format == "Bech32":
                 bip = Bip84.FromSeed(self.seed_bytes, Bip84Coins.BITCOIN)
+                bip = bip.Purpose().Coin().Account(account)
+            elif format == "Taproot":
+                bip = Bip86.FromSeed(self.seed_bytes, Bip86Coins.BITCOIN)
                 bip = bip.Purpose().Coin().Account(account)
             else:
                 raise ValueError(f"Invalid format: {format}")
