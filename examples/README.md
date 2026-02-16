@@ -82,6 +82,21 @@ Brute-force mnemonic recovery demonstrations.
 python examples/bruteforce_example.py
 ```
 
+### 6. `batch_seed_generation.py`
+Batch PBKDF2 seed generation.
+
+**Demonstrates:**
+- Batch processing multiple mnemonics
+- Performance comparison (single vs batch)
+- Using different passphrases
+- Large batch estimation
+- GPU acceleration status
+
+**Run:**
+```bash
+python examples/batch_seed_generation.py
+```
+
 ## Prerequisites
 
 Make sure you have the package installed:
