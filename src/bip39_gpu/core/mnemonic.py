@@ -225,11 +225,15 @@ class BIP39Mnemonic:
         salt = ("mnemonic" + passphrase_normalized).encode("utf-8")
         password = mnemonic_normalized.encode("utf-8")
 
-        # TODO: Add GPU acceleration when available
+        # GPU acceleration when available
         if use_gpu:
-            # For now, fall back to CPU
-            # GPU implementation will be added in Phase 5
-            pass
+            try:
+                from ..gpu.pbkdf2_gpu import batch_mnemonic_to_seed_gpu
+                seeds = batch_mnemonic_to_seed_gpu([mnemonic_normalized], [passphrase_normalized])
+                return seeds[0]
+            except (ImportError, Exception):
+                # Fall back to CPU if GPU unavailable or fails
+                pass
 
         # PBKDF2-HMAC-SHA512 with 2048 iterations (BIP39 standard)
         seed = hashlib.pbkdf2_hmac(
@@ -273,10 +277,14 @@ class BIP39Mnemonic:
                 f"mnemonics length ({len(mnemonics)})"
             )
 
-        # TODO: Add GPU batch processing in Phase 5
+        # GPU batch processing
         if use_gpu:
-            # For now, fall back to CPU
-            pass
+            try:
+                from ..gpu.pbkdf2_gpu import batch_mnemonic_to_seed_gpu
+                return batch_mnemonic_to_seed_gpu(mnemonics, passphrases)
+            except (ImportError, Exception):
+                # Fall back to CPU if GPU unavailable or fails
+                pass
 
         # CPU: Process each mnemonic individually
         seeds = []

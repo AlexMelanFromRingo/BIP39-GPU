@@ -135,3 +135,36 @@ class TestSeedGeneration:
         assert len(seeds) == 5
         for seed in seeds:
             assert len(seed) == 64
+
+    def test_to_seed_with_gpu_flag(self):
+        """Test seed generation with GPU flag (falls back to CPU if unavailable)."""
+        mnemonic = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about"
+
+        # CPU seed
+        seed_cpu = BIP39Mnemonic.to_seed(mnemonic, passphrase="", use_gpu=False)
+
+        # GPU seed (will fallback to CPU if GPU unavailable)
+        seed_gpu = BIP39Mnemonic.to_seed(mnemonic, passphrase="", use_gpu=True)
+
+        # Should produce same result
+        assert seed_cpu == seed_gpu
+        assert len(seed_cpu) == 64
+
+    def test_batch_to_seed_with_gpu_flag(self):
+        """Test batch seed generation with GPU flag."""
+        mnemonics = ["abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about"] * 3
+        passphrases = ["", "test1", "test2"]
+
+        # CPU batch
+        seeds_cpu = BIP39Mnemonic.batch_to_seed(mnemonics, passphrases, use_gpu=False)
+
+        # GPU batch (will fallback to CPU if GPU unavailable)
+        seeds_gpu = BIP39Mnemonic.batch_to_seed(mnemonics, passphrases, use_gpu=True)
+
+        # Should produce same results
+        assert seeds_cpu == seeds_gpu
+        assert len(seeds_cpu) == 3
+
+        # Different passphrases should produce different seeds
+        assert seeds_cpu[0] != seeds_cpu[1]
+        assert seeds_cpu[1] != seeds_cpu[2]
