@@ -18,10 +18,10 @@
   - Bech32 (Native SegWit, starts with 'bc1q')
   - Taproot (starts with 'bc1p')
 - ⚡ **GPU acceleration** via OpenCL (infrastructure ready, batch PBKDF2 coming soon)
-- 🔍 **Brute-force search** (recover partial mnemonics) - Coming soon
+- 🔍 **Brute-force search** (recover partial mnemonics with ??? placeholders)
 - 🐍 **Python library** + **CLI tool**
 - 📊 **JSON output** support
-- 🧪 **Comprehensive test suite** (52 tests, 49% coverage)
+- 🧪 **Comprehensive test suite** (60+ tests, comprehensive coverage)
 
 ## Installation
 
@@ -118,6 +118,22 @@ bip39-gpu address "mnemonic phrase" --account 1 --change 0 --index 10
 
 # JSON output
 bip39-gpu address "mnemonic phrase" --format P2SH --json
+```
+
+#### Brute-force mnemonic recovery
+
+```bash
+# Recover mnemonic with 1 unknown word (fast)
+bip39-gpu bruteforce --pattern "abandon ??? abandon abandon abandon abandon abandon abandon abandon abandon abandon about"
+
+# Check feasibility without searching
+bip39-gpu bruteforce --pattern "word1 ??? ??? word4 ..." --dry-run
+
+# Verbose output with progress
+bip39-gpu bruteforce --pattern "abandon ??? abandon ..." --verbose
+
+# JSON output
+bip39-gpu bruteforce --pattern "abandon ??? abandon ..." --json
 ```
 
 ### Python Library Usage
@@ -270,13 +286,15 @@ mypy src/
 ## Roadmap
 
 - [x] Core BIP39 implementation (CPU)
-- [x] CLI interface (generate, validate, seed, address)
+- [x] CLI interface (generate, validate, seed, address, bruteforce)
 - [x] Python library API
 - [x] BIP32/BIP44/BIP49/BIP84/BIP86 address derivation (P2PKH, P2SH, Bech32, Taproot)
 - [x] GPU infrastructure (OpenCL context, SHA256 kernels)
-- [x] Comprehensive test suite (52 tests, 49% coverage)
+- [x] Brute-force mnemonic recovery (CPU with ??? placeholders)
+- [x] Usage examples (basic, addresses, GPU, batch operations)
+- [x] Comprehensive test suite (66 tests, 49% coverage)
 - [ ] GPU PBKDF2 acceleration (batch seed generation)
-- [ ] Brute-force mnemonic search with GPU
+- [ ] GPU-accelerated brute-force search
 - [ ] Multi-language wordlist support
 - [ ] Hardware wallet integration
 - [ ] Performance benchmarks
