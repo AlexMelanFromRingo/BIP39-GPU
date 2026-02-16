@@ -33,28 +33,35 @@ def main():
     print()
 
     # Example 3: Derive Bech32 (Native SegWit) address
-    print("3. Bech32 (Native SegWit) Address - starts with 'bc1'")
+    print("3. Bech32 (Native SegWit) Address - starts with 'bc1q'")
     bech32_addr = wallet.derive_address(format="Bech32", address_index=0)
     print(f"   Address: {bech32_addr}")
     print(f"   Path: {DerivationPath.build_bip84(address_index=0)}")
     print()
 
-    # Example 4: Derive multiple addresses
-    print("4. Multiple Addresses (first 5 Bech32 addresses)")
+    # Example 4: Derive Taproot address
+    print("4. Taproot Address - starts with 'bc1p'")
+    taproot_addr = wallet.derive_address(format="Taproot", address_index=0)
+    print(f"   Address: {taproot_addr}")
+    print(f"   Path: {DerivationPath.build_bip86(address_index=0)}")
+    print()
+
+    # Example 5: Derive multiple addresses
+    print("5. Multiple Addresses (first 5 Bech32 addresses)")
     addrs = wallet.derive_addresses(count=5, format="Bech32")
     for i, addr in enumerate(addrs):
         print(f"   [{i}] {addr}")
     print()
 
-    # Example 5: Different accounts
-    print("5. Multiple Accounts (account 0, 1, 2)")
+    # Example 6: Different accounts
+    print("6. Multiple Accounts (account 0, 1, 2)")
     for account in range(3):
         addr = wallet.derive_address(account=account, format="Bech32")
         print(f"   Account {account}: {addr}")
     print()
 
-    # Example 6: Change addresses (internal addresses)
-    print("6. Change Addresses (internal chain)")
+    # Example 7: Change addresses (internal addresses)
+    print("7. Change Addresses (internal chain)")
     print("   External (change=0):")
     ext_addr = wallet.derive_address(change=0, format="Bech32")
     print(f"     {ext_addr}")
@@ -63,8 +70,8 @@ def main():
     print(f"     {int_addr}")
     print()
 
-    # Example 7: Custom derivation paths
-    print("7. Custom Derivation Paths")
+    # Example 8: Custom derivation paths
+    print("8. Custom Derivation Paths")
     paths = [
         DerivationPath.build_bip44(account=0, address_index=0),
         DerivationPath.build_bip44(account=0, address_index=1),
@@ -74,8 +81,8 @@ def main():
         print(f"   Path: {path}")
     print()
 
-    # Example 8: With passphrase
-    print("8. Addresses with BIP39 Passphrase")
+    # Example 9: With passphrase
+    print("9. Addresses with BIP39 Passphrase")
     wallet_no_pass = HDWallet(mnemonic, passphrase="")
     wallet_with_pass = HDWallet(mnemonic, passphrase="my secret")
 
