@@ -17,11 +17,12 @@
   - P2SH (SegWit-wrapped, starts with '3')
   - Bech32 (Native SegWit, starts with 'bc1q')
   - Taproot (starts with 'bc1p')
-- ⚡ **GPU acceleration** via OpenCL (infrastructure ready, batch PBKDF2 coming soon)
+- ⚡ **GPU acceleration** via OpenCL (SHA256 ready, PBKDF2 infrastructure complete)
 - 🔍 **Brute-force search** (recover partial mnemonics with ??? placeholders)
+- ⚙️ **Batch operations** (process multiple mnemonics efficiently)
 - 🐍 **Python library** + **CLI tool**
 - 📊 **JSON output** support
-- 🧪 **Comprehensive test suite** (60+ tests, comprehensive coverage)
+- 🧪 **Comprehensive test suite** (74 tests, 48% coverage)
 
 ## Installation
 
@@ -134,6 +135,21 @@ bip39-gpu bruteforce --pattern "abandon ??? abandon ..." --verbose
 
 # JSON output
 bip39-gpu bruteforce --pattern "abandon ??? abandon ..." --json
+```
+
+#### Batch seed generation
+
+```bash
+# Process multiple mnemonics from file
+echo "mnemonic1..." > mnemonics.txt
+echo "mnemonic2..." >> mnemonics.txt
+bip39-gpu seed --file mnemonics.txt --batch
+
+# With GPU flag (shows warning, uses CPU fallback)
+bip39-gpu seed --file mnemonics.txt --batch --gpu
+
+# JSON output
+bip39-gpu seed --file mnemonics.txt --batch --json
 ```
 
 ### Python Library Usage
@@ -291,9 +307,10 @@ mypy src/
 - [x] BIP32/BIP44/BIP49/BIP84/BIP86 address derivation (P2PKH, P2SH, Bech32, Taproot)
 - [x] GPU infrastructure (OpenCL context, SHA256 kernels)
 - [x] Brute-force mnemonic recovery (CPU with ??? placeholders)
-- [x] Usage examples (basic, addresses, GPU, batch operations)
-- [x] Comprehensive test suite (66 tests, 49% coverage)
-- [ ] GPU PBKDF2 acceleration (batch seed generation)
+- [x] Batch PBKDF2 seed generation (CPU with GPU infrastructure)
+- [x] Usage examples (6 comprehensive examples)
+- [x] Comprehensive test suite (74 tests, 48% coverage)
+- [ ] GPU PBKDF2-HMAC-SHA512 acceleration (kernel implementation)
 - [ ] GPU-accelerated brute-force search
 - [ ] Multi-language wordlist support
 - [ ] Hardware wallet integration
