@@ -91,28 +91,31 @@ class GPUBruteForce:
             from ..core.mnemonic import BIP39Mnemonic
             return BIP39Mnemonic.to_seed(mnemonic, passphrase)
 
-    def seed_to_address(self, seed: bytes) -> str:
-        """Convert seed to Bitcoin address.
+    def seed_to_address(self, seed: bytes, use_gpu: bool = True) -> str:
+        """Convert seed to Bitcoin P2PKH address via BIP44 (m/44'/0'/0'/0/0).
 
         Args:
             seed: 64-byte seed
+            use_gpu: Attempt GPU acceleration for BIP32 derivation
 
         Returns:
-            Bitcoin address
+            P2PKH Bitcoin address (starts with '1')
         """
-        try:
-            from ..wallet.addresses import HDWallet
-            from ..core.mnemonic import BIP39Mnemonic
+        from ..gpu.bip32_gpu import seed_to_address as _gpu_addr
+        return _gpu_addr(seed, coin_type=0, address_index=0, use_gpu=use_gpu)
 
-            # Create temporary mnemonic from seed (for HDWallet)
-            # Note: In real implementation, we'd derive address directly from seed
-            # For now, we need to find the mnemonic first
+    def batch_seed_to_address(self, seeds: list, use_gpu: bool = True) -> list:
+        """Batch convert seeds to Bitcoin addresses.
 
-            # This is a simplified version - in production, implement BIP32 on GPU
-            return None  # Placeholder
+        Args:
+            seeds: List of 64-byte seeds
+            use_gpu: Attempt GPU BIP32 acceleration
 
-        except ImportError:
-            return None
+        Returns:
+            List of P2PKH addresses
+        """
+        from ..gpu.bip32_gpu import batch_seed_to_address
+        return batch_seed_to_address(seeds, use_gpu=use_gpu)
 
     def search_batch_cpu(
         self,
