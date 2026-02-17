@@ -17,10 +17,13 @@
   - P2SH (SegWit-wrapped, starts with '3')
   - Bech32 (Native SegWit, starts with 'bc1q')
   - Taproot (starts with 'bc1p')
-- ⚡ **GPU acceleration** via OpenCL
+- ⚡ **GPU acceleration** via OpenCL — full pipeline on GPU:
   - SHA-256/SHA-512 batch operations
-  - PBKDF2-HMAC-SHA512 (2048 iterations) with automatic CPU fallback
-  - Full brute-force entropy generation
+  - PBKDF2-HMAC-SHA512 (2048 iterations, BIP39 seed generation)
+  - secp256k1 elliptic curve point multiplication (256-bit field, Jacobian)
+  - RIPEMD-160 hashing (hash160 = RIPEMD160(SHA256(pubkey)))
+  - BIP32/BIP44 key derivation (HMAC-SHA512 + scalar addition mod n)
+  - Full entropy → mnemonic → seed → address pipeline
 - 🔍 **Brute-force search**
   - Pattern-based recovery (??? placeholders for unknown words)
   - Full brute-force (entropy → mnemonic → address)
@@ -217,6 +220,17 @@ result = searcher.search_batch_cpu(max_attempts=1000000)
 # Generate random entropy
 entropies = searcher.generate_random_entropies(count=100)
 mnemonics = [searcher.entropy_to_mnemonic(e) for e in entropies]
+
+# GPU BIP32/BIP44 full pipeline (entropy → address)
+from bip39_gpu.gpu.bip32_gpu import batch_seed_to_address, seed_to_address
+
+# Single address (BIP44 m/44'/0'/0'/0/0)
+seed = BIP39Mnemonic.to_seed(mnemonic)
+addr = seed_to_address(seed, coin_type=0, address_index=0, use_gpu=True)
+
+# Batch address generation (GPU-accelerated)
+seeds = [BIP39Mnemonic.to_seed(m) for m in mnemonics]
+addresses = batch_seed_to_address(seeds, coin_type=0, address_index=0, use_gpu=True)
 ```
 
 ## Project Structure
@@ -235,10 +249,14 @@ BIP39_GPU/
 │   │   ├── kernels.py      # Kernel loading/compilation
 │   │   ├── sha256.py       # GPU SHA-256 operations
 │   │   ├── pbkdf2_gpu.py   # GPU PBKDF2-HMAC-SHA512
+│   │   ├── bip32_gpu.py    # GPU BIP32/BIP44 full pipeline
 │   │   └── cl/             # OpenCL kernels
 │   │       ├── sha256.cl   # SHA-256 kernel
 │   │       ├── sha512.cl   # SHA-512 kernel
 │   │       ├── pbkdf2_hmac_sha512.cl  # PBKDF2 kernel
+│   │       ├── secp256k1.cl # secp256k1 EC arithmetic + point mult
+│   │       ├── ripemd160.cl # RIPEMD-160 hash (for hash160)
+│   │       ├── bip32.cl    # BIP32 derivation + address pipeline
 │   │       └── utils.cl    # Utility functions
 │   ├── wallet/             # BIP32/BIP44/BIP49/BIP84/BIP86
 │   │   ├── addresses.py    # Address generation
@@ -265,13 +283,24 @@ BIP39 GPU provides OpenCL-accelerated implementations of cryptographic operation
 ### Features
 
 **✅ Implemented:**
-- **SHA-256/SHA-512** - Batch hashing operations
+- **SHA-256/SHA-512** - Batch hashing (OpenCL kernels)
 - **PBKDF2-HMAC-SHA512** - 2048 iterations for BIP39 seed generation
-- **Full Brute-Force** - Entropy generation and mnemonic conversion
+- **secp256k1** - 256-bit field arithmetic + Jacobian point multiplication
+- **RIPEMD-160** - hash160 = RIPEMD160(SHA256(pubkey))
+- **BIP32/BIP44** - Full derivation path (HMAC-SHA512 + scalar mod n)
+- **Full GPU Pipeline** - entropy → mnemonic → seed → address
 - **Automatic Fallback** - Graceful CPU fallback when GPU unavailable
 
-**⏳ Future:**
-- **BIP32 Derivation** - GPU-accelerated key derivation (complex cryptography)
+**Pipeline Architecture:**
+```
+Entropy → BIP39 Mnemonic
+        → PBKDF2-HMAC-SHA512 (seed)
+        → HMAC-SHA512("Bitcoin seed") (master key)
+        → BIP44 path (5x HMAC-SHA512 steps)
+        → secp256k1 k*G (private → public key)
+        → SHA256 + RIPEMD160 (hash160)
+        → Base58Check (P2PKH address)
+```
 
 ### Usage
 
@@ -445,22 +474,23 @@ mypy src/
 - [x] Python library API
 - [x] BIP32/BIP44/BIP49/BIP84/BIP86 address derivation (P2PKH, P2SH, Bech32, Taproot)
 - [x] GPU infrastructure (OpenCL context management)
-- [x] GPU SHA-256 and SHA-512 kernels
+- [x] GPU SHA-256, SHA-512, RIPEMD-160 kernels
 - [x] GPU PBKDF2-HMAC-SHA512 (2048 iterations with automatic fallback)
-- [x] GPU full brute-force engine (entropy → mnemonic → address)
+- [x] GPU secp256k1 elliptic curve (256-bit Jacobian point multiplication)
+- [x] GPU BIP32/BIP44 full derivation pipeline
+- [x] GPU full pipeline: entropy → mnemonic → seed → address
 - [x] Pattern-based brute-force recovery (??? placeholders)
-- [x] Batch PBKDF2 seed generation (CPU and GPU)
-- [x] Usage examples (6 comprehensive examples)
-- [x] Comprehensive test suite (78 tests, 44% coverage)
+- [x] Batch operations (CPU and GPU)
+- [x] Usage examples (7 comprehensive examples)
+- [x] Comprehensive test suite (98 tests, 47% coverage)
 
-### 🔄 In Progress / Future Work
+### 🔄 Future Work
 
-- [ ] GPU BIP32 derivation (complex, long-term goal)
+- [ ] Bech32/SegWit address derivation on GPU
 - [ ] Multi-language wordlist support (French, Spanish, etc.)
 - [ ] Hardware wallet integration (Ledger, Trezor)
 - [ ] Advanced performance benchmarks
 - [ ] Documentation website
-- [ ] WebAssembly compilation for browser use
 
 ## Contributing
 
