@@ -1,9 +1,12 @@
 # BIP39 GPU
 
-🚀 GPU-accelerated BIP39 mnemonic generator using OpenCL
+GPU-accelerated BIP39 mnemonic operations using OpenCL
 
 [![Python](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/AlexMelanFromRingo/BIP39-GPU)](https://github.com/AlexMelanFromRingo/BIP39-GPU/releases)
+[![Docs](https://img.shields.io/badge/docs-GitHub%20Pages-orange)](https://alexmelanfromringo.github.io/BIP39-GPU/)
+[![Tests](https://img.shields.io/badge/tests-128%20passed-brightgreen)](https://github.com/AlexMelanFromRingo/BIP39-GPU)
 
 **BIP39 GPU** is a high-performance Python library and CLI tool for working with BIP39 mnemonic phrases. It provides both CPU and GPU-accelerated implementations for generating, validating, and converting mnemonics to seeds.
 
@@ -30,33 +33,36 @@
 - ⚙️ **Batch operations** (process multiple mnemonics efficiently)
 - 🐍 **Python library** + **CLI tool**
 - 📊 **JSON output** support
-- 🧪 **Comprehensive test suite** (78 tests, 44% coverage)
+- 🧪 **Comprehensive test suite** (128 tests, 57% coverage)
 
 ## Installation
 
-### Prerequisites
+### From GitHub Releases (recommended)
 
-- Python 3.12 or higher
-- OpenCL runtime (optional, for GPU acceleration):
-  - **Intel**: `intel-opencl-icd`
-  - **NVIDIA**: CUDA Toolkit
-  - **AMD**: ROCm or AMD APP SDK
-
-### Install from source
+Download the wheel from [GitHub Releases](https://github.com/AlexMelanFromRingo/BIP39-GPU/releases):
 
 ```bash
-git clone https://github.com/young-developer/BIP39-GPU.git
+pip install bip39_gpu-0.1.0-py3-none-any.whl
+```
+
+### From source
+
+```bash
+git clone https://github.com/AlexMelanFromRingo/BIP39-GPU.git
 cd BIP39-GPU
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -e .
 ```
 
-### Install dependencies only
+### OpenCL runtime (for GPU features)
 
+**POCL** (works on any CPU, recommended for testing):
 ```bash
-pip install -r requirements.txt
+sudo apt install pocl-opencl-icd ocl-icd-opencl-dev
 ```
+
+For NVIDIA / AMD / Intel GPU see [Installation docs](https://alexmelanfromringo.github.io/BIP39-GPU/installation/).
 
 ## Quick Start
 
