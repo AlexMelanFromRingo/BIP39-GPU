@@ -402,6 +402,10 @@ static void jac_dbl(
     fe_dbl(rx, D);
     fe_sub(rx, F, rx);            /* X3 = F - 2D */
 
+    /* Z3 = 2 * Y * Z  — computed BEFORE Y3 to avoid aliasing (ry==py) */
+    fe_mul(rz, py, pz);
+    fe_dbl(rz, rz);               /* Z3 = 2*Y*Z */
+
     /* Y3 = E*(D - X3) - 8*C */
     uint tmp[8];
     fe_sub(tmp, D, rx);
@@ -409,10 +413,6 @@ static void jac_dbl(
     uint c8[8]; fe_set(c8, C);
     for (int i = 0; i < 3; i++) fe_dbl(c8, c8);  /* 8*C */
     fe_sub(ry, ry, c8);           /* Y3 = E*(D-X3) - 8*C */
-
-    /* Z3 = 2 * Y * Z */
-    fe_mul(rz, py, pz);
-    fe_dbl(rz, rz);               /* Z3 = 2*Y*Z */
 }
 
 /*
@@ -469,13 +469,14 @@ static void jac_add_affine(
     fe_sub(rx, rx, V);
     fe_sub(rx, rx, V);
 
-    /* Y3 = r*(V - X3) - 2*Y1*J */
+    /* Y3 = r*(V - X3) - 2*Y1*J  — compute 2*Y1*J BEFORE writing ry (aliasing: ry==py) */
     uint tmp[8];
-    fe_sub(tmp, V, rx);
-    fe_mul(ry, rv, tmp);
-    fe_mul(tmp, py, J);
-    fe_dbl(tmp, tmp);
-    fe_sub(ry, ry, tmp);
+    fe_mul(tmp, py, J);           /* tmp = Y1*J  (read py before it is overwritten) */
+    fe_dbl(tmp, tmp);             /* tmp = 2*Y1*J */
+    uint tmp2[8];
+    fe_sub(tmp2, V, rx);
+    fe_mul(ry, rv, tmp2);         /* ry = r*(V-X3) */
+    fe_sub(ry, ry, tmp);          /* ry = r*(V-X3) - 2*Y1*J */
 
     /* Z3 = (Z1+H)^2 - Z1Z1 - HH */
     fe_add(rz, pz, H);

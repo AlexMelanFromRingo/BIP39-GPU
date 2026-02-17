@@ -269,8 +269,8 @@ BIP39_GPU/
 │   │   ├── main.py         # CLI entry point
 │   │   └── commands/       # Command implementations
 │   └── utils/              # Utilities
-├── tests/                  # Test suite (78 tests)
-├── examples/               # Usage examples (6 examples)
+├── tests/                  # Test suite (132 tests)
+├── examples/               # Usage examples (7 examples)
 └── docs/                   # Documentation
 ```
 
@@ -287,19 +287,26 @@ BIP39 GPU provides OpenCL-accelerated implementations of cryptographic operation
 - **PBKDF2-HMAC-SHA512** - 2048 iterations for BIP39 seed generation
 - **secp256k1** - 256-bit field arithmetic + Jacobian point multiplication
 - **RIPEMD-160** - hash160 = RIPEMD160(SHA256(pubkey))
-- **BIP32/BIP44** - Full derivation path (HMAC-SHA512 + scalar mod n)
-- **Full GPU Pipeline** - entropy → mnemonic → seed → address
+- **BIP32/BIP44/BIP49/BIP84/BIP86** - All derivation paths on GPU
+- **Bech32/Bech32m** - Native SegWit (bc1q) and Taproot (bc1p) encoding
+- **BIP341 Taproot** - Tagged hash + keypath tweak for P2TR
+- **Full GPU Pipeline** - entropy → mnemonic → seed → address (4 formats)
 - **Automatic Fallback** - Graceful CPU fallback when GPU unavailable
+- **POCL** - Verified on CPU via Portable OpenCL (pocl-opencl-icd)
 
-**Pipeline Architecture:**
+**Pipeline Architecture (all 4 address formats):**
 ```
 Entropy → BIP39 Mnemonic
         → PBKDF2-HMAC-SHA512 (seed)
         → HMAC-SHA512("Bitcoin seed") (master key)
-        → BIP44 path (5x HMAC-SHA512 steps)
+        → BIP path m/purpose'/coin'/0'/0/index
+             purpose 44 → P2PKH    (1...)   Legacy
+             purpose 49 → P2SH-P2WPKH (3...) SegWit-wrapped
+             purpose 84 → P2WPKH   (bc1q...) Native SegWit
+             purpose 86 → P2TR     (bc1p...) Taproot
         → secp256k1 k*G (private → public key)
-        → SHA256 + RIPEMD160 (hash160)
-        → Base58Check (P2PKH address)
+        → hash160 (SHA256 + RIPEMD160) or taptweak (BIP341)
+        → Base58Check / Bech32 / Bech32m
 ```
 
 ### Usage
@@ -317,11 +324,14 @@ seeds = batch_mnemonic_to_seed_gpu(mnemonics, passphrases)
 
 ### Requirements
 
-For GPU acceleration, install OpenCL runtime:
+For GPU acceleration, install an OpenCL runtime:
 
-**Linux:**
+**Linux (recommended — CPU via POCL for testing):**
 ```bash
-# Intel
+# Portable OpenCL — runs OpenCL on CPU, no GPU required
+sudo apt install pocl-opencl-icd
+
+# Intel GPU
 sudo apt install intel-opencl-icd
 
 # NVIDIA (requires CUDA)
@@ -477,16 +487,19 @@ mypy src/
 - [x] GPU SHA-256, SHA-512, RIPEMD-160 kernels
 - [x] GPU PBKDF2-HMAC-SHA512 (2048 iterations with automatic fallback)
 - [x] GPU secp256k1 elliptic curve (256-bit Jacobian point multiplication)
-- [x] GPU BIP32/BIP44 full derivation pipeline
-- [x] GPU full pipeline: entropy → mnemonic → seed → address
+- [x] GPU BIP32/BIP44/BIP49/BIP84/BIP86 full derivation pipeline
+- [x] GPU Bech32/Bech32m encoding (P2WPKH bc1q, P2TR bc1p)
+- [x] GPU BIP341 Taproot keypath tweak (tagged hash + EC point add)
+- [x] GPU full pipeline: entropy → mnemonic → seed → all 4 address formats
+- [x] Verified on CPU via POCL (Portable OpenCL, no GPU required)
+- [x] Fixed secp256k1 aliasing bug (jac_dbl/jac_add_affine in-place)
 - [x] Pattern-based brute-force recovery (??? placeholders)
 - [x] Batch operations (CPU and GPU)
 - [x] Usage examples (7 comprehensive examples)
-- [x] Comprehensive test suite (98 tests, 47% coverage)
+- [x] Comprehensive test suite (132 tests, 57% coverage)
 
 ### 🔄 Future Work
 
-- [ ] Bech32/SegWit address derivation on GPU
 - [ ] Multi-language wordlist support (French, Spanish, etc.)
 - [ ] Hardware wallet integration (Ledger, Trezor)
 - [ ] Advanced performance benchmarks
