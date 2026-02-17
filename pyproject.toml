@@ -8,17 +8,17 @@ version = "0.1.0"
 description = "GPU-accelerated BIP39 mnemonic generator using OpenCL"
 readme = "README.md"
 requires-python = ">=3.12"
-license = {text = "MIT"}
+license = "MIT"
 authors = [
-    {name = "BIP39-GPU Contributors"}
+    {name = "Alex Melan"}
 ]
 keywords = ["bip39", "mnemonic", "gpu", "opencl", "bitcoin", "cryptocurrency", "wallet"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Security :: Cryptography",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
@@ -44,9 +44,10 @@ dev = [
 bip39-gpu = "bip39_gpu.cli.main:cli"
 
 [project.urls]
-Homepage = "https://github.com/young-developer/BIP39-GPU"
-Repository = "https://github.com/young-developer/BIP39-GPU"
-Issues = "https://github.com/young-developer/BIP39-GPU/issues"
+Homepage = "https://github.com/AlexMelanFromRingo/BIP39-GPU"
+Repository = "https://github.com/AlexMelanFromRingo/BIP39-GPU"
+Issues = "https://github.com/AlexMelanFromRingo/BIP39-GPU/issues"
+Documentation = "https://alexmelanfromringo.github.io/BIP39-GPU/"
 
 [tool.setuptools.packages.find]
 where = ["src"]
