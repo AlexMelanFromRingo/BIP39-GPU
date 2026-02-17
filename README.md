@@ -488,11 +488,14 @@ mypy src/
 - [x] GPU PBKDF2-HMAC-SHA512 (2048 iterations with automatic fallback)
 - [x] GPU secp256k1 elliptic curve (256-bit Jacobian point multiplication)
 - [x] GPU BIP32/BIP44/BIP49/BIP84/BIP86 full derivation pipeline
-- [x] GPU Bech32/Bech32m encoding (P2WPKH bc1q, P2TR bc1p)
-- [x] GPU BIP341 Taproot keypath tweak (tagged hash + EC point add)
+- [x] **Bech32/SegWit address derivation on GPU** — all 4 formats verified:
+  - P2PKH `1...` — BIP44, Base58Check
+  - P2SH-P2WPKH `3...` — BIP49, hash160(redeemScript)
+  - P2WPKH `bc1q...` — BIP84, Bech32 (BIP173)
+  - P2TR `bc1p...` — BIP86, BIP341 taptweak + Bech32m (BIP350)
 - [x] GPU full pipeline: entropy → mnemonic → seed → all 4 address formats
 - [x] Verified on CPU via POCL (Portable OpenCL, no GPU required)
-- [x] Fixed secp256k1 aliasing bug (jac_dbl/jac_add_affine in-place)
+- [x] Fixed secp256k1 aliasing bug in jac_dbl/jac_add_affine (in-place calls)
 - [x] Pattern-based brute-force recovery (??? placeholders)
 - [x] Batch operations (CPU and GPU)
 - [x] Usage examples (7 comprehensive examples)
