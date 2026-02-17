@@ -1,0 +1,68 @@
+site_name: BIP39 GPU
+site_description: GPU-accelerated BIP39 mnemonic operations using OpenCL
+site_url: https://alexmelanfromringo.github.io/BIP39-GPU/
+repo_url: https://github.com/AlexMelanFromRingo/BIP39-GPU
+repo_name: AlexMelanFromRingo/BIP39-GPU
+copyright: Copyright &copy; 2026 Alex Melan
+
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      primary: deep orange
+      accent: orange
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+    - scheme: default
+      primary: deep orange
+      accent: orange
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+  icon:
+    repo: fontawesome/brands/github
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: installation.md
+      - Quick Start: quickstart.md
+  - User Guide:
+      - CLI Reference: cli.md
+      - Python API: api.md
+      - GPU Acceleration: gpu.md
+      - Bitcoin Addresses: addresses.md
+  - Changelog: changelog.md
+
+plugins:
+  - search
+
+markdown_extensions:
+  - pymdownx.highlight:
+      auto_title: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - admonition
+  - pymdownx.details
+  - tables
+  - toc:
+      permalink: true
+  - attr_list
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/AlexMelanFromRingo/BIP39-GPU
