@@ -285,12 +285,14 @@ static void bip32_ckdpriv(
 }
 
 /*
- * Derive BIP44 path: m/44'/coin'/0'/0/index
- * coin_type: 0 = Bitcoin, 60 = Ethereum, etc.
- * Returns child private key at the given address_index
+ * Generalized BIP derivation: m/purpose'/coin'/0'/0/index
+ * purpose: 44=P2PKH, 49=P2SH-P2WPKH, 84=P2WPKH, 86=P2TR
+ * coin_type: 0=Bitcoin, 60=Ethereum, etc.
+ * Returns child private key at the given address_index.
  */
-static void bip44_derive(
+static void bip_derive(
     const uchar *seed,       /* 64 bytes */
+    uint purpose,            /* BIP purpose: 44/49/84/86 */
     uint coin_type,          /* 0 for Bitcoin */
     uint address_index,
     uchar *out_key,          /* 32 bytes out: private key */
@@ -305,23 +307,23 @@ static void bip44_derive(
     for (int i = 0; i < 32; i++) key[i]   = master_hmac[i];
     for (int i = 0; i < 32; i++) chain[i] = master_hmac[32+i];
 
-    /* m/44' (hardened) */
+    /* m/purpose' (hardened) */
     uchar k2[32], c2[32];
-    bip32_ckdpriv(key, chain, 0x80000000u + 44, k2, c2);
+    bip32_ckdpriv(key, chain, 0x80000000u + purpose, k2, c2);
 
-    /* m/44'/coin' (hardened) */
+    /* m/purpose'/coin' (hardened) */
     uchar k3[32], c3[32];
     bip32_ckdpriv(k2, c2, 0x80000000u + coin_type, k3, c3);
 
-    /* m/44'/coin'/0' (hardened, account 0) */
+    /* m/purpose'/coin'/0' (hardened, account 0) */
     uchar k4[32], c4[32];
     bip32_ckdpriv(k3, c3, 0x80000000u, k4, c4);
 
-    /* m/44'/coin'/0'/0 (external chain) */
+    /* m/purpose'/coin'/0'/0 (external chain) */
     uchar k5[32], c5[32];
     bip32_ckdpriv(k4, c4, 0, k5, c5);
 
-    /* m/44'/coin'/0'/0/index */
+    /* m/purpose'/coin'/0'/0/index */
     bip32_ckdpriv(k5, c5, address_index, out_key, out_chain);
 }
 
@@ -337,23 +339,27 @@ static void hash160(const uchar *data, uint len, uchar *out) {
 /*
  * bip32_seed_to_hash160
  *
- * Given an array of 64-byte seeds, derive BIP44 address and return hash160.
- * Python side converts hash160 to final address using Base58Check.
+ * Given an array of 64-byte seeds, derive BIP address and return hash160 + pubkey.
+ * Python side converts to final address (P2PKH, P2WPKH, P2SH-P2WPKH, P2TR).
  *
  * Args:
- *   seeds:          input, n_seeds × 64 bytes
+ *   seeds:          input,  n_seeds × 64 bytes
+ *   purpose:        BIP purpose (44=P2PKH, 49=P2SH-P2WPKH, 84=P2WPKH, 86=P2TR)
  *   coin_type:      BIP44 coin type (0 = Bitcoin)
- *   address_index:  BIP44 address index
+ *   address_index:  address index
  *   hash160_out:    output, n_seeds × 20 bytes (hash160 of public key)
  *   privkeys_out:   output, n_seeds × 32 bytes (derived private keys)
+ *   pubkeys_out:    output, n_seeds × 33 bytes (compressed public keys)
  *   n_seeds:        number of seeds
  */
 __kernel void bip32_seed_to_hash160(
     __global const uchar *seeds,
+    const uint purpose,
     const uint coin_type,
     const uint address_index,
     __global uchar *hash160_out,
     __global uchar *privkeys_out,
+    __global uchar *pubkeys_out,
     const uint n_seeds
 ) {
     uint gid = get_global_id(0);
@@ -363,9 +369,9 @@ __kernel void bip32_seed_to_hash160(
     uchar seed[64];
     for (int i = 0; i < 64; i++) seed[i] = seeds[gid * 64 + i];
 
-    /* BIP44 derivation */
+    /* BIP derivation: m/purpose'/coin'/0'/0/index */
     uchar priv_key[32], chain_code[32];
-    bip44_derive(seed, coin_type, address_index, priv_key, chain_code);
+    bip_derive(seed, purpose, coin_type, address_index, priv_key, chain_code);
 
     /* Save private key */
     for (int i = 0; i < 32; i++) privkeys_out[gid * 32 + i] = priv_key[i];
@@ -377,6 +383,9 @@ __kernel void bip32_seed_to_hash160(
     /* Compressed public key (33 bytes) */
     uchar pubkey[33];
     secp256k1_pubkey_compressed(pubkey, ax, ay);
+
+    /* Save compressed public key */
+    for (int i = 0; i < 33; i++) pubkeys_out[gid * 33 + i] = pubkey[i];
 
     /* hash160 = RIPEMD160(SHA256(pubkey)) */
     uchar h160[20];
