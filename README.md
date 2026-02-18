@@ -505,14 +505,15 @@ mypy src/
 - [x] Pattern-based brute-force recovery (??? placeholders)
 - [x] Batch operations (CPU and GPU)
 - [x] Usage examples (7 comprehensive examples)
-- [x] Comprehensive test suite (132 tests, 57% coverage)
+- [x] Comprehensive test suite (128 tests, 57% coverage)
+- [x] **Documentation website** — [GitHub Pages (MkDocs Material)](https://alexmelanfromringo.github.io/BIP39-GPU/)
+- [x] **v0.1.0 release** — wheel + sdist on [GitHub Releases](https://github.com/AlexMelanFromRingo/BIP39-GPU/releases)
 
 ### 🔄 Future Work
 
 - [ ] Multi-language wordlist support (French, Spanish, etc.)
 - [ ] Hardware wallet integration (Ledger, Trezor)
 - [ ] Advanced performance benchmarks
-- [ ] Documentation website
 
 ## Contributing
 
