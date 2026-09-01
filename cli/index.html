@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -988,11 +988,11 @@ bip39-gpu<span class="w"> </span>generate<span class="w"> </span>--words<span cl
 </tbody>
 </table>
 <p><strong>Examples:</strong></p>
-<div class="highlight"><span class="filename">Bash</span><pre><span></span><code>bip39-gpu<span class="w"> </span>validate<span class="w"> </span><span class="s2">&quot;abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about&quot;</span>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code>bip39-gpu<span class="w"> </span>validate<span class="w"> </span><span class="s2">"abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about"</span>
 <span class="c1"># ✓ Valid mnemonic (12 words, checksum OK)</span>
 
-bip39-gpu<span class="w"> </span>validate<span class="w"> </span><span class="s2">&quot;wrong word list&quot;</span>
-<span class="c1"># ✗ Invalid mnemonic: word &#39;wrong&#39; not in BIP39 wordlist</span>
+bip39-gpu<span class="w"> </span>validate<span class="w"> </span><span class="s2">"wrong word list"</span>
+<span class="c1"># ✗ Invalid mnemonic: word 'wrong' not in BIP39 wordlist</span>
 </code></pre></div>
 <hr />
 <h2 id="seed"><code>seed</code><a class="headerlink" href="#seed" title="Permanent link">&para;</a></h2>
@@ -1026,11 +1026,11 @@ bip39-gpu<span class="w"> </span>validate<span class="w"> </span><span class="s2
 </tbody>
 </table>
 <p><strong>Examples:</strong></p>
-<div class="highlight"><span class="filename">Bash</span><pre><span></span><code>bip39-gpu<span class="w"> </span>seed<span class="w"> </span><span class="s2">&quot;abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about&quot;</span>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code>bip39-gpu<span class="w"> </span>seed<span class="w"> </span><span class="s2">"abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about"</span>
 <span class="c1"># Seed: c55257e96a...</span>
 
-bip39-gpu<span class="w"> </span>seed<span class="w"> </span><span class="s2">&quot;my mnemonic&quot;</span><span class="w"> </span>--passphrase<span class="w"> </span><span class="s2">&quot;my secret&quot;</span>
-bip39-gpu<span class="w"> </span>seed<span class="w"> </span><span class="s2">&quot;my mnemonic&quot;</span><span class="w"> </span>--gpu<span class="w"> </span>--json
+bip39-gpu<span class="w"> </span>seed<span class="w"> </span><span class="s2">"my mnemonic"</span><span class="w"> </span>--passphrase<span class="w"> </span><span class="s2">"my secret"</span>
+bip39-gpu<span class="w"> </span>seed<span class="w"> </span><span class="s2">"my mnemonic"</span><span class="w"> </span>--gpu<span class="w"> </span>--json
 </code></pre></div>
 <hr />
 <h2 id="address"><code>address</code><a class="headerlink" href="#address" title="Permanent link">&para;</a></h2>
@@ -1112,19 +1112,19 @@ bip39-gpu<span class="w"> </span>seed<span class="w"> </span><span class="s2">&q
 </table>
 <p><strong>Examples:</strong></p>
 <div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span class="c1"># Legacy address (default)</span>
-bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">&quot;my mnemonic&quot;</span>
+bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">"my mnemonic"</span>
 
 <span class="c1"># Taproot address</span>
-bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">&quot;my mnemonic&quot;</span><span class="w"> </span>--format<span class="w"> </span>P2TR
+bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">"my mnemonic"</span><span class="w"> </span>--format<span class="w"> </span>P2TR
 
 <span class="c1"># First 10 Native SegWit addresses</span>
-bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">&quot;my mnemonic&quot;</span><span class="w"> </span>--format<span class="w"> </span>P2WPKH<span class="w"> </span>--count<span class="w"> </span><span class="m">10</span>
+bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">"my mnemonic"</span><span class="w"> </span>--format<span class="w"> </span>P2WPKH<span class="w"> </span>--count<span class="w"> </span><span class="m">10</span>
 
 <span class="c1"># All formats, GPU-accelerated</span>
-bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">&quot;my mnemonic&quot;</span><span class="w"> </span>--format<span class="w"> </span>P2PKH<span class="w"> </span>--gpu
-bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">&quot;my mnemonic&quot;</span><span class="w"> </span>--format<span class="w"> </span>P2SH_P2WPKH<span class="w"> </span>--gpu
-bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">&quot;my mnemonic&quot;</span><span class="w"> </span>--format<span class="w"> </span>P2WPKH<span class="w"> </span>--gpu
-bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">&quot;my mnemonic&quot;</span><span class="w"> </span>--format<span class="w"> </span>P2TR<span class="w"> </span>--gpu
+bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">"my mnemonic"</span><span class="w"> </span>--format<span class="w"> </span>P2PKH<span class="w"> </span>--gpu
+bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">"my mnemonic"</span><span class="w"> </span>--format<span class="w"> </span>P2SH_P2WPKH<span class="w"> </span>--gpu
+bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">"my mnemonic"</span><span class="w"> </span>--format<span class="w"> </span>P2WPKH<span class="w"> </span>--gpu
+bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">"my mnemonic"</span><span class="w"> </span>--format<span class="w"> </span>P2TR<span class="w"> </span>--gpu
 </code></pre></div>
 <hr />
 <h2 id="bruteforce"><code>bruteforce</code><a class="headerlink" href="#bruteforce" title="Permanent link">&para;</a></h2>
@@ -1173,12 +1173,12 @@ bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2"
 <p><strong>Examples:</strong></p>
 <div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span class="c1"># 1 unknown word (2,048 combinations)</span>
 bip39-gpu<span class="w"> </span>bruteforce<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--pattern<span class="w"> </span><span class="s2">&quot;abandon ??? abandon abandon abandon abandon abandon abandon abandon abandon abandon about&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--pattern<span class="w"> </span><span class="s2">"abandon ??? abandon abandon abandon abandon abandon abandon abandon abandon abandon about"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--gpu
 
 <span class="c1"># 2 unknown words with target address</span>
 bip39-gpu<span class="w"> </span>bruteforce<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--pattern<span class="w"> </span><span class="s2">&quot;word1 word2 ??? word4 word5 word6 word7 word8 word9 word10 word11 ???&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--pattern<span class="w"> </span><span class="s2">"word1 word2 ??? word4 word5 word6 word7 word8 word9 word10 word11 ???"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--target<span class="w"> </span>1A1zP1eP5QGefi2DMPTfTL5SLmv7Divf<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--format<span class="w"> </span>P2PKH<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--gpu
@@ -1306,7 +1306,7 @@ Three or more unknown words may be computationally infeasible.</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

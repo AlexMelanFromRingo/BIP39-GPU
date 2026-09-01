@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1115,15 +1115,15 @@
 <hr />
 <h3 id="bip39mnemonicvalidatemnemonic"><code>BIP39Mnemonic.validate(mnemonic)</code><a class="headerlink" href="#bip39mnemonicvalidatemnemonic" title="Permanent link">&para;</a></h3>
 <p>Validate a mnemonic phrase (word list + checksum).</p>
-<div class="highlight"><span class="filename">Python</span><pre><span></span><code><span class="n">ok</span> <span class="o">=</span> <span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="s2">&quot;abandon abandon ... about&quot;</span><span class="p">)</span>   <span class="c1"># True</span>
-<span class="n">ok</span> <span class="o">=</span> <span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="s2">&quot;invalid phrase&quot;</span><span class="p">)</span>              <span class="c1"># False</span>
+<div class="highlight"><span class="filename">Python</span><pre><span></span><code><span class="n">ok</span> <span class="o">=</span> <span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="s2">"abandon abandon ... about"</span><span class="p">)</span>   <span class="c1"># True</span>
+<span class="n">ok</span> <span class="o">=</span> <span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="s2">"invalid phrase"</span><span class="p">)</span>              <span class="c1"># False</span>
 </code></pre></div>
 <p><strong>Returns:</strong> <code>bool</code></p>
 <hr />
 <h3 id="bip39mnemonicto_seedmnemonic-passphrase"><code>BIP39Mnemonic.to_seed(mnemonic, passphrase="")</code><a class="headerlink" href="#bip39mnemonicto_seedmnemonic-passphrase" title="Permanent link">&para;</a></h3>
 <p>Derive a 64-byte seed using PBKDF2-HMAC-SHA512 (BIP39 standard).</p>
 <div class="highlight"><span class="filename">Python</span><pre><span></span><code><span class="n">seed</span> <span class="o">=</span> <span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">to_seed</span><span class="p">(</span><span class="n">mnemonic</span><span class="p">)</span>
-<span class="n">seed</span> <span class="o">=</span> <span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">to_seed</span><span class="p">(</span><span class="n">mnemonic</span><span class="p">,</span> <span class="n">passphrase</span><span class="o">=</span><span class="s2">&quot;my passphrase&quot;</span><span class="p">)</span>
+<span class="n">seed</span> <span class="o">=</span> <span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">to_seed</span><span class="p">(</span><span class="n">mnemonic</span><span class="p">,</span> <span class="n">passphrase</span><span class="o">=</span><span class="s2">"my passphrase"</span><span class="p">)</span>
 <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span> <span class="o">==</span> <span class="mi">64</span>
 </code></pre></div>
 <table>
@@ -1161,10 +1161,10 @@
 
 <span class="n">seed</span> <span class="o">=</span> <span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">to_seed</span><span class="p">(</span><span class="n">mnemonic</span><span class="p">)</span>
 
-<span class="n">p2pkh</span>  <span class="o">=</span> <span class="n">seed_to_address</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">&quot;P2PKH&quot;</span><span class="p">)</span>
-<span class="n">p2sh</span>   <span class="o">=</span> <span class="n">seed_to_address</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">&quot;P2SH_P2WPKH&quot;</span><span class="p">)</span>
-<span class="n">p2wpkh</span> <span class="o">=</span> <span class="n">seed_to_address</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">&quot;P2WPKH&quot;</span><span class="p">)</span>
-<span class="n">p2tr</span>   <span class="o">=</span> <span class="n">seed_to_address</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">&quot;P2TR&quot;</span><span class="p">)</span>
+<span class="n">p2pkh</span>  <span class="o">=</span> <span class="n">seed_to_address</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">"P2PKH"</span><span class="p">)</span>
+<span class="n">p2sh</span>   <span class="o">=</span> <span class="n">seed_to_address</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">"P2SH_P2WPKH"</span><span class="p">)</span>
+<span class="n">p2wpkh</span> <span class="o">=</span> <span class="n">seed_to_address</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">"P2WPKH"</span><span class="p">)</span>
+<span class="n">p2tr</span>   <span class="o">=</span> <span class="n">seed_to_address</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">"P2TR"</span><span class="p">)</span>
 </code></pre></div>
 <table>
 <thead>
@@ -1209,7 +1209,7 @@
 <div class="highlight"><span class="filename">Python</span><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">bip39_gpu.gpu.bip32_gpu</span><span class="w"> </span><span class="kn">import</span> <span class="n">batch_seed_to_address</span>
 
 <span class="n">seeds</span> <span class="o">=</span> <span class="p">[</span><span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">to_seed</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mnemonics</span><span class="p">]</span>
-<span class="n">addresses</span> <span class="o">=</span> <span class="n">batch_seed_to_address</span><span class="p">(</span><span class="n">seeds</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">&quot;P2WPKH&quot;</span><span class="p">,</span> <span class="n">use_gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">addresses</span> <span class="o">=</span> <span class="n">batch_seed_to_address</span><span class="p">(</span><span class="n">seeds</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">"P2WPKH"</span><span class="p">,</span> <span class="n">use_gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
 <table>
 <thead>
@@ -1254,7 +1254,7 @@
 </code></pre></div>
 <h3 id="batch_pbkdf2_cpumnemonics-passphrase"><code>batch_pbkdf2_cpu(mnemonics, passphrase="")</code><a class="headerlink" href="#batch_pbkdf2_cpumnemonics-passphrase" title="Permanent link">&para;</a></h3>
 <p>Derive seeds for multiple mnemonics using CPU (multi-threaded).</p>
-<div class="highlight"><span class="filename">Python</span><pre><span></span><code><span class="n">seeds</span> <span class="o">=</span> <span class="n">batch_pbkdf2_cpu</span><span class="p">([</span><span class="s2">&quot;mnemonic1&quot;</span><span class="p">,</span> <span class="s2">&quot;mnemonic2&quot;</span><span class="p">],</span> <span class="n">passphrase</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<div class="highlight"><span class="filename">Python</span><pre><span></span><code><span class="n">seeds</span> <span class="o">=</span> <span class="n">batch_pbkdf2_cpu</span><span class="p">([</span><span class="s2">"mnemonic1"</span><span class="p">,</span> <span class="s2">"mnemonic2"</span><span class="p">],</span> <span class="n">passphrase</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span>
 </code></pre></div>
 <p><strong>Returns:</strong> <code>list[bytes]</code></p>
 <hr />
@@ -1263,9 +1263,9 @@
 
 <span class="n">ctx</span> <span class="o">=</span> <span class="n">get_gpu_context</span><span class="p">()</span>
 <span class="k">if</span> <span class="n">ctx</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;GPU: </span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"GPU: </span><span class="si">{</span><span class="n">ctx</span><span class="o">.</span><span class="n">devices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No OpenCL device found, using CPU fallback&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"No OpenCL device found, using CPU fallback"</span><span class="p">)</span>
 </code></pre></div>
 <hr />
 <h2 id="exceptions">Exceptions<a class="headerlink" href="#exceptions" title="Permanent link">&para;</a></h2>
@@ -1290,17 +1290,17 @@
 
 <span class="c1"># Validate all</span>
 <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mnemonics</span><span class="p">:</span>
-    <span class="k">assert</span> <span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;Invalid: </span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">assert</span> <span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> <span class="sa">f</span><span class="s2">"Invalid: </span><span class="si">{</span><span class="n">m</span><span class="si">}</span><span class="s2">"</span>
 
 <span class="c1"># Derive seeds</span>
 <span class="n">seeds</span> <span class="o">=</span> <span class="p">[</span><span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">to_seed</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mnemonics</span><span class="p">]</span>
 
 <span class="c1"># Derive all 4 address formats in batch</span>
-<span class="k">for</span> <span class="n">fmt</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;P2PKH&quot;</span><span class="p">,</span> <span class="s2">&quot;P2SH_P2WPKH&quot;</span><span class="p">,</span> <span class="s2">&quot;P2WPKH&quot;</span><span class="p">,</span> <span class="s2">&quot;P2TR&quot;</span><span class="p">]:</span>
+<span class="k">for</span> <span class="n">fmt</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"P2PKH"</span><span class="p">,</span> <span class="s2">"P2SH_P2WPKH"</span><span class="p">,</span> <span class="s2">"P2WPKH"</span><span class="p">,</span> <span class="s2">"P2TR"</span><span class="p">]:</span>
     <span class="n">addrs</span> <span class="o">=</span> <span class="n">batch_seed_to_address</span><span class="p">(</span><span class="n">seeds</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="n">fmt</span><span class="p">,</span> <span class="n">use_gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">fmt</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="si">{</span><span class="n">fmt</span><span class="si">}</span><span class="s2">:"</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">m</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">mnemonics</span><span class="p">[:</span><span class="mi">3</span><span class="p">],</span> <span class="n">addrs</span><span class="p">[:</span><span class="mi">3</span><span class="p">]):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">m</span><span class="p">[:</span><span class="mi">40</span><span class="p">]</span><span class="si">}</span><span class="s2">...  </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  </span><span class="si">{</span><span class="n">m</span><span class="p">[:</span><span class="mi">40</span><span class="p">]</span><span class="si">}</span><span class="s2">...  </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </code></pre></div>
 
 
@@ -1420,7 +1420,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

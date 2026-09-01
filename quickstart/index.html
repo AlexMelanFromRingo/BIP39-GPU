@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -31,7 +31,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1082,33 +1082,33 @@ bip39-gpu<span class="w"> </span>generate<span class="w"> </span>--words<span cl
 bip39-gpu<span class="w"> </span>generate<span class="w"> </span>--words<span class="w"> </span><span class="m">12</span><span class="w"> </span>--json<span class="w">      </span><span class="c1"># JSON output</span>
 </code></pre></div>
 <h3 id="validate-a-mnemonic">Validate a mnemonic<a class="headerlink" href="#validate-a-mnemonic" title="Permanent link">&para;</a></h3>
-<div class="highlight"><span class="filename">Bash</span><pre><span></span><code>bip39-gpu<span class="w"> </span>validate<span class="w"> </span><span class="s2">&quot;abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about&quot;</span>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code>bip39-gpu<span class="w"> </span>validate<span class="w"> </span><span class="s2">"abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about"</span>
 <span class="c1"># ✓ Valid mnemonic (12 words, checksum OK)</span>
 
-bip39-gpu<span class="w"> </span>validate<span class="w"> </span><span class="s2">&quot;abandon abandon abandon abandon&quot;</span>
+bip39-gpu<span class="w"> </span>validate<span class="w"> </span><span class="s2">"abandon abandon abandon abandon"</span>
 <span class="c1"># ✗ Invalid mnemonic</span>
 </code></pre></div>
 <h3 id="derive-a-seed">Derive a seed<a class="headerlink" href="#derive-a-seed" title="Permanent link">&para;</a></h3>
-<div class="highlight"><span class="filename">Bash</span><pre><span></span><code>bip39-gpu<span class="w"> </span>seed<span class="w"> </span><span class="s2">&quot;abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about&quot;</span>
+<div class="highlight"><span class="filename">Bash</span><pre><span></span><code>bip39-gpu<span class="w"> </span>seed<span class="w"> </span><span class="s2">"abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about"</span>
 <span class="c1"># Seed: c55257e...</span>
 
-bip39-gpu<span class="w"> </span>seed<span class="w"> </span><span class="s2">&quot;mnemonic&quot;</span><span class="w"> </span>--passphrase<span class="w"> </span><span class="s2">&quot;my secret&quot;</span>
-bip39-gpu<span class="w"> </span>seed<span class="w"> </span><span class="s2">&quot;mnemonic&quot;</span><span class="w"> </span>--gpu<span class="w">         </span><span class="c1"># use GPU for PBKDF2</span>
+bip39-gpu<span class="w"> </span>seed<span class="w"> </span><span class="s2">"mnemonic"</span><span class="w"> </span>--passphrase<span class="w"> </span><span class="s2">"my secret"</span>
+bip39-gpu<span class="w"> </span>seed<span class="w"> </span><span class="s2">"mnemonic"</span><span class="w"> </span>--gpu<span class="w">         </span><span class="c1"># use GPU for PBKDF2</span>
 </code></pre></div>
 <h3 id="derive-bitcoin-addresses">Derive Bitcoin addresses<a class="headerlink" href="#derive-bitcoin-addresses" title="Permanent link">&para;</a></h3>
 <div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span class="c1"># All 4 formats, first 3 addresses each</span>
-bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">&quot;your mnemonic&quot;</span><span class="w"> </span>--count<span class="w"> </span><span class="m">3</span><span class="w"> </span>--gpu
+bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">"your mnemonic"</span><span class="w"> </span>--count<span class="w"> </span><span class="m">3</span><span class="w"> </span>--gpu
 
 <span class="c1"># Specific format</span>
-bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">&quot;your mnemonic&quot;</span><span class="w"> </span>--format<span class="w"> </span>P2TR<span class="w"> </span>--count<span class="w"> </span><span class="m">5</span>
-bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">&quot;your mnemonic&quot;</span><span class="w"> </span>--format<span class="w"> </span>P2WPKH
-bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">&quot;your mnemonic&quot;</span><span class="w"> </span>--format<span class="w"> </span>P2PKH<span class="w"> </span>--json
+bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">"your mnemonic"</span><span class="w"> </span>--format<span class="w"> </span>P2TR<span class="w"> </span>--count<span class="w"> </span><span class="m">5</span>
+bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">"your mnemonic"</span><span class="w"> </span>--format<span class="w"> </span>P2WPKH
+bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">"your mnemonic"</span><span class="w"> </span>--format<span class="w"> </span>P2PKH<span class="w"> </span>--json
 </code></pre></div>
 <h3 id="batch-operations">Batch operations<a class="headerlink" href="#batch-operations" title="Permanent link">&para;</a></h3>
 <div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span class="c1"># Batch seed derivation from stdin</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;mnemonic1</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"mnemonic1</span>
 <span class="s2">mnemonic2</span>
-<span class="s2">mnemonic3&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>bip39-gpu<span class="w"> </span>seed<span class="w"> </span>--batch<span class="w"> </span>--gpu
+<span class="s2">mnemonic3"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>bip39-gpu<span class="w"> </span>seed<span class="w"> </span>--batch<span class="w"> </span>--gpu
 </code></pre></div>
 <hr />
 <h2 id="python-library-5-minutes">Python Library — 5 minutes<a class="headerlink" href="#python-library-5-minutes" title="Permanent link">&para;</a></h2>
@@ -1121,14 +1121,14 @@ bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2"
 
 <span class="c1"># Validate</span>
 <span class="n">is_valid</span> <span class="o">=</span> <span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">validate</span><span class="p">(</span><span class="n">mnemonic</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Valid: </span><span class="si">{</span><span class="n">is_valid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Valid: </span><span class="si">{</span><span class="n">is_valid</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 <span class="c1"># Seed</span>
 <span class="n">seed</span> <span class="o">=</span> <span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">to_seed</span><span class="p">(</span><span class="n">mnemonic</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Seed length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span><span class="si">}</span><span class="s2"> bytes&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Seed length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span><span class="si">}</span><span class="s2"> bytes"</span><span class="p">)</span>
 
 <span class="c1"># Seed with passphrase</span>
-<span class="n">seed</span> <span class="o">=</span> <span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">to_seed</span><span class="p">(</span><span class="n">mnemonic</span><span class="p">,</span> <span class="n">passphrase</span><span class="o">=</span><span class="s2">&quot;my passphrase&quot;</span><span class="p">)</span>
+<span class="n">seed</span> <span class="o">=</span> <span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">to_seed</span><span class="p">(</span><span class="n">mnemonic</span><span class="p">,</span> <span class="n">passphrase</span><span class="o">=</span><span class="s2">"my passphrase"</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="address-derivation">Address derivation<a class="headerlink" href="#address-derivation" title="Permanent link">&para;</a></h3>
 <div class="highlight"><span class="filename">Python</span><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">bip39_gpu</span><span class="w"> </span><span class="kn">import</span> <span class="n">BIP39Mnemonic</span>
@@ -1138,13 +1138,13 @@ bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2"
 <span class="n">seed</span> <span class="o">=</span> <span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">to_seed</span><span class="p">(</span><span class="n">mnemonic</span><span class="p">)</span>
 
 <span class="c1"># Single address</span>
-<span class="n">p2pkh</span>  <span class="o">=</span> <span class="n">seed_to_address</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">&quot;P2PKH&quot;</span><span class="p">)</span>
-<span class="n">p2wpkh</span> <span class="o">=</span> <span class="n">seed_to_address</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">&quot;P2WPKH&quot;</span><span class="p">)</span>
-<span class="n">p2tr</span>   <span class="o">=</span> <span class="n">seed_to_address</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">&quot;P2TR&quot;</span><span class="p">)</span>
+<span class="n">p2pkh</span>  <span class="o">=</span> <span class="n">seed_to_address</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">"P2PKH"</span><span class="p">)</span>
+<span class="n">p2wpkh</span> <span class="o">=</span> <span class="n">seed_to_address</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">"P2WPKH"</span><span class="p">)</span>
+<span class="n">p2tr</span>   <span class="o">=</span> <span class="n">seed_to_address</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">"P2TR"</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Legacy:  </span><span class="si">{</span><span class="n">p2pkh</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SegWit:  </span><span class="si">{</span><span class="n">p2wpkh</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Taproot: </span><span class="si">{</span><span class="n">p2tr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Legacy:  </span><span class="si">{</span><span class="n">p2pkh</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"SegWit:  </span><span class="si">{</span><span class="n">p2wpkh</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Taproot: </span><span class="si">{</span><span class="n">p2tr</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="batch-processing-gpu">Batch processing (GPU)<a class="headerlink" href="#batch-processing-gpu" title="Permanent link">&para;</a></h3>
 <div class="highlight"><span class="filename">Python</span><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">bip39_gpu</span><span class="w"> </span><span class="kn">import</span> <span class="n">BIP39Mnemonic</span>
@@ -1155,10 +1155,10 @@ bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2"
 <span class="n">seeds</span> <span class="o">=</span> <span class="p">[</span><span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">to_seed</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mnemonics</span><span class="p">]</span>
 
 <span class="c1"># Derive addresses for all 100 seeds in one GPU batch</span>
-<span class="n">addresses</span> <span class="o">=</span> <span class="n">batch_seed_to_address</span><span class="p">(</span><span class="n">seeds</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">&quot;P2WPKH&quot;</span><span class="p">,</span> <span class="n">use_gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">addresses</span> <span class="o">=</span> <span class="n">batch_seed_to_address</span><span class="p">(</span><span class="n">seeds</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">"P2WPKH"</span><span class="p">,</span> <span class="n">use_gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">mnemonic</span><span class="p">,</span> <span class="n">address</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">mnemonics</span><span class="p">,</span> <span class="n">addresses</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mnemonic</span><span class="p">[:</span><span class="mi">40</span><span class="p">]</span><span class="si">}</span><span class="s2">...  </span><span class="si">{</span><span class="n">address</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">mnemonic</span><span class="p">[:</span><span class="mi">40</span><span class="p">]</span><span class="si">}</span><span class="s2">...  </span><span class="si">{</span><span class="n">address</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="streaming-generation">Streaming generation<a class="headerlink" href="#streaming-generation" title="Permanent link">&para;</a></h3>
 <div class="highlight"><span class="filename">Python</span><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">bip39_gpu</span><span class="w"> </span><span class="kn">import</span> <span class="n">BIP39Mnemonic</span>
@@ -1170,23 +1170,23 @@ bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2"
     <span class="n">mnemonics</span> <span class="o">=</span> <span class="p">[</span><span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">BATCH</span><span class="p">)]</span>
     <span class="n">seeds</span> <span class="o">=</span> <span class="p">[</span><span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">to_seed</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">mnemonics</span><span class="p">]</span>
 
-    <span class="n">p2pkh</span>  <span class="o">=</span> <span class="n">batch_seed_to_address</span><span class="p">(</span><span class="n">seeds</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">&quot;P2PKH&quot;</span><span class="p">,</span>       <span class="n">use_gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">p2tr</span>   <span class="o">=</span> <span class="n">batch_seed_to_address</span><span class="p">(</span><span class="n">seeds</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">&quot;P2TR&quot;</span><span class="p">,</span>        <span class="n">use_gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">p2pkh</span>  <span class="o">=</span> <span class="n">batch_seed_to_address</span><span class="p">(</span><span class="n">seeds</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">"P2PKH"</span><span class="p">,</span>       <span class="n">use_gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">p2tr</span>   <span class="o">=</span> <span class="n">batch_seed_to_address</span><span class="p">(</span><span class="n">seeds</span><span class="p">,</span> <span class="n">address_format</span><span class="o">=</span><span class="s2">"P2TR"</span><span class="p">,</span>        <span class="n">use_gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">BATCH</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mnemonics</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">&lt;56</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">p2pkh</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">&lt;34</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">p2tr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">mnemonics</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">&lt;56</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">p2pkh</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">&lt;34</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">p2tr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </code></pre></div>
 <hr />
 <h2 id="wallet-recovery-brute-force">Wallet Recovery (Brute-force)<a class="headerlink" href="#wallet-recovery-brute-force" title="Permanent link">&para;</a></h2>
 <div class="highlight"><span class="filename">Bash</span><pre><span></span><code><span class="c1"># Recover a mnemonic with 1 unknown word</span>
-bip39-gpu<span class="w"> </span>bruteforce<span class="w"> </span>--pattern<span class="w"> </span><span class="s2">&quot;abandon ??? abandon abandon abandon abandon abandon abandon abandon abandon abandon about&quot;</span><span class="w"> </span>--gpu
+bip39-gpu<span class="w"> </span>bruteforce<span class="w"> </span>--pattern<span class="w"> </span><span class="s2">"abandon ??? abandon abandon abandon abandon abandon abandon abandon abandon abandon about"</span><span class="w"> </span>--gpu
 
 <span class="c1"># 2 unknown words (4M combinations)</span>
-bip39-gpu<span class="w"> </span>bruteforce<span class="w"> </span>--pattern<span class="w"> </span><span class="s2">&quot;??? abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon ???&quot;</span><span class="w"> </span>--gpu
+bip39-gpu<span class="w"> </span>bruteforce<span class="w"> </span>--pattern<span class="w"> </span><span class="s2">"??? abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon ???"</span><span class="w"> </span>--gpu
 
 <span class="c1"># Match against a known Bitcoin address</span>
 bip39-gpu<span class="w"> </span>bruteforce<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--pattern<span class="w"> </span><span class="s2">&quot;word1 word2 ??? word4 word5 word6 word7 word8 word9 word10 word11 ???&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--pattern<span class="w"> </span><span class="s2">"word1 word2 ??? word4 word5 word6 word7 word8 word9 word10 word11 ???"</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--target<span class="w"> </span>1A1zP1eP5QGefi2DMPTfTL5SLmv7Divf<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--gpu
 </code></pre></div>
@@ -1316,7 +1316,7 @@ bip39-gpu<span class="w"> </span>bruteforce<span class="w"> </span><span class="
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

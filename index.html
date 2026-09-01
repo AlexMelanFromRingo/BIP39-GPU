@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.2">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1078,15 +1078,15 @@ pip<span class="w"> </span>install<span class="w"> </span>bip39_gpu-0.1.0-py3-no
 <span class="n">seed</span> <span class="o">=</span> <span class="n">BIP39Mnemonic</span><span class="o">.</span><span class="n">to_seed</span><span class="p">(</span><span class="n">mnemonic</span><span class="p">)</span>
 
 <span class="c1"># Derive all 4 address formats via GPU</span>
-<span class="k">for</span> <span class="n">fmt</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;P2PKH&quot;</span><span class="p">,</span> <span class="s2">&quot;P2SH_P2WPKH&quot;</span><span class="p">,</span> <span class="s2">&quot;P2WPKH&quot;</span><span class="p">,</span> <span class="s2">&quot;P2TR&quot;</span><span class="p">]:</span>
+<span class="k">for</span> <span class="n">fmt</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"P2PKH"</span><span class="p">,</span> <span class="s2">"P2SH_P2WPKH"</span><span class="p">,</span> <span class="s2">"P2WPKH"</span><span class="p">,</span> <span class="s2">"P2TR"</span><span class="p">]:</span>
     <span class="n">addr</span> <span class="o">=</span> <span class="n">batch_seed_to_address</span><span class="p">([</span><span class="n">seed</span><span class="p">],</span> <span class="n">address_format</span><span class="o">=</span><span class="n">fmt</span><span class="p">,</span> <span class="n">use_gpu</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fmt</span><span class="si">:</span><span class="s2">15</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">addr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">fmt</span><span class="si">:</span><span class="s2">15</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">addr</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </code></pre></div>
 <hr />
 <h2 id="cli">CLI<a class="headerlink" href="#cli" title="Permanent link">&para;</a></h2>
 <div class="highlight"><span class="filename">Bash</span><pre><span></span><code>bip39-gpu<span class="w"> </span>generate<span class="w"> </span>--words<span class="w"> </span><span class="m">12</span>
-bip39-gpu<span class="w"> </span>validate<span class="w"> </span><span class="s2">&quot;abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about&quot;</span>
-bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">&quot;mnemonic phrase&quot;</span><span class="w"> </span>--format<span class="w"> </span>P2TR<span class="w"> </span>--count<span class="w"> </span><span class="m">5</span><span class="w"> </span>--gpu
+bip39-gpu<span class="w"> </span>validate<span class="w"> </span><span class="s2">"abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about"</span>
+bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2">"mnemonic phrase"</span><span class="w"> </span>--format<span class="w"> </span>P2TR<span class="w"> </span>--count<span class="w"> </span><span class="m">5</span><span class="w"> </span>--gpu
 </code></pre></div>
 <p>See <a href="cli/">CLI Reference</a> for all commands.</p>
 
@@ -1191,7 +1191,7 @@ bip39-gpu<span class="w"> </span>address<span class="w"> </span><span class="s2"
       <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.code.copy", "content.code.annotate"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
