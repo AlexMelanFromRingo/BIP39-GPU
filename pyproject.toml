@@ -1,77 +1,17 @@
-[build-system]
-requires = ["setuptools>=68.0", "wheel"]
-build-backend = "setuptools.build_meta"
-
+# Generated from the project's virtualenv.
+# `dependencies` lists what was installed directly; the full resolved
+# set, including everything pulled in behind them, is requirements.txt.
 [project]
-name = "bip39-gpu"
-version = "0.1.0"
-description = "GPU-accelerated BIP39 mnemonic generator using OpenCL"
-readme = "README.md"
+name = "bip39_gpu"
+version = "0.0.0"
 requires-python = ">=3.12"
-license = "MIT"
-authors = [
-    {name = "Alex Melan"}
-]
-keywords = ["bip39", "mnemonic", "gpu", "opencl", "bitcoin", "cryptocurrency", "wallet"]
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Developers",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
-    "Topic :: Security :: Cryptography",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-]
-
 dependencies = [
-    "pyopencl>=2024.1",
-    "numpy>=1.26.0",
-    "click>=8.1.0",
-    "cryptography>=42.0.0",
-    "bip-utils>=2.9.0",
+    "bip39-gpu==0.1.0",
+    "black==26.1.0",
+    "build==1.4.0",
+    "mkdocs-material==9.7.1",
+    "mypy==1.19.1",
+    "pytest-cov==7.0.0",
+    "ruff==0.15.1",
+    "twine==6.2.0",
 ]
-
-[project.optional-dependencies]
-dev = [
-    "pytest>=8.0.0",
-    "pytest-cov>=4.1.0",
-    "black>=24.0.0",
-    "mypy>=1.8.0",
-    "ruff>=0.1.0",
-]
-
-[project.scripts]
-bip39-gpu = "bip39_gpu.cli.main:cli"
-
-[project.urls]
-Homepage = "https://github.com/AlexMelanFromRingo/BIP39-GPU"
-Repository = "https://github.com/AlexMelanFromRingo/BIP39-GPU"
-Issues = "https://github.com/AlexMelanFromRingo/BIP39-GPU/issues"
-Documentation = "https://alexmelanfromringo.github.io/BIP39-GPU/"
-
-[tool.setuptools.packages.find]
-where = ["src"]
-
-[tool.setuptools.package-data]
-bip39_gpu = ["gpu/cl/*.cl", "core/wordlists/*.txt"]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-python_files = ["test_*.py"]
-python_classes = ["Test*"]
-python_functions = ["test_*"]
-addopts = "-v --cov=bip39_gpu --cov-report=term-missing"
-
-[tool.black]
-line-length = 100
-target-version = ["py312"]
-
-[tool.ruff]
-line-length = 100
-target-version = "py312"
-
-[tool.mypy]
-python_version = "3.12"
-warn_return_any = true
-warn_unused_configs = true
-disallow_untyped_defs = true
